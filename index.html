@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光回線診断ツール</title>
+
+<style>
+body{
+    font-family:sans-serif;
+    background:#f5f7fa;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    width:500px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+}
+
+select,input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#0070f3;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    display:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>光回線診断ツール</h1>
+
+<label>住居タイプ</label>
+<select id="house">
+<option>戸建て</option>
+<option>マンション</option>
+</select>
+
+<label>スマホ会社</label>
+<select id="carrier">
+<option>docomo</option>
+<option>au</option>
+<option>SoftBank</option>
+<option>楽天モバイル</option>
+</select>
+
+<label>郵便番号</label>
+<input id="zipcode" placeholder="123-4567">
+
+<button onclick="diagnose()">診断する</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+function diagnose(){
+
+const carrier =
+document.getElementById("carrier").value;
+
+let recommendation = "";
+
+if(carrier==="docomo"){
+ recommendation="ドコモ光";
+}
+else if(carrier==="au"){
+ recommendation="auひかり";
+}
+else if(carrier==="SoftBank"){
+ recommendation="ソフトバンク光";
+}
+else{
+ recommendation="楽天ひかり";
+}
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("result").innerHTML=
+`
+<h2>おすすめ回線</h2>
+
+<p><strong>${recommendation}</strong></p>
+
+<a href="https://lin.ee/OY5RfF4" target="_blank">
+<button>
+LINEで無料相談する
+</button>
+</a>
+`;
+}
+</script>
+
+</body>
+</html>
