@@ -7,49 +7,64 @@
 
 <style>
 body{
-    font-family:sans-serif;
-    background:#f5f7fa;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
 }
 
 .container{
+    max-width:700px;
+    margin:auto;
     background:white;
     padding:30px;
     border-radius:15px;
-    width:500px;
     box-shadow:0 0 15px rgba(0,0,0,0.1);
 }
 
 h1{
     text-align:center;
+    color:#333;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
 }
 
 select,input{
     width:100%;
     padding:10px;
     margin-top:5px;
-    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
 }
 
 button{
     width:100%;
-    padding:12px;
+    padding:15px;
+    margin-top:20px;
     background:#0070f3;
     color:white;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#0059c9;
 }
 
 .result{
-    margin-top:20px;
     display:none;
+    margin-top:30px;
+    background:#f8f9fa;
+    padding:20px;
+    border-radius:10px;
 }
 </style>
-
 </head>
 
 <body>
@@ -64,57 +79,167 @@ button{
 <option>マンション</option>
 </select>
 
+<label>お住まい地域</label>
+<select id="region">
+<option>東日本</option>
+<option>西日本</option>
+</select>
+
 <label>スマホ会社</label>
 <select id="carrier">
 <option>docomo</option>
 <option>au</option>
 <option>SoftBank</option>
 <option>楽天モバイル</option>
+<option>その他</option>
+</select>
+
+<label>現在利用中の回線</label>
+<select id="currentLine">
+<option>ドコモ光</option>
+<option>SB光</option>
+<option>au光</option>
+<option>NURO光</option>
+<option>ソネット光</option>
+<option>ニフティ光</option>
+<option>ホームルーター</option>
+<option>わからない</option>
+</select>
+
+<label>月額料金</label>
+<select id="fee">
+<option>4000円未満</option>
+<option>4000～5000円</option>
+<option>5000～6000円</option>
+<option>6000円以上</option>
+</select>
+
+<label>利用目的</label>
+<select id="usage">
+<option>動画視聴</option>
+<option>オンラインゲーム</option>
+<option>在宅ワーク</option>
+<option>家族利用</option>
+</select>
+
+<label>一番の悩み</label>
+<select id="problem">
+<option>料金</option>
+<option>速度</option>
+<option>安定性</option>
+<option>サポート</option>
 </select>
 
 <label>郵便番号</label>
-<input id="zipcode" placeholder="123-4567">
+<input type="text" placeholder="123-4567">
 
 <button onclick="diagnose()">診断する</button>
 
-<div class="result" id="result"></div>
+<div id="result" class="result"></div>
 
 </div>
 
 <script>
+
 function diagnose(){
 
 const carrier =
 document.getElementById("carrier").value;
 
-let recommendation = "";
+const usage =
+document.getElementById("usage").value;
 
-if(carrier==="docomo"){
- recommendation="ドコモ光";
+const house =
+document.getElementById("house").value;
+
+const region =
+document.getElementById("region").value;
+
+let rank1="";
+let rank2="";
+let rank3="";
+
+if(usage==="オンラインゲーム"){
+
+rank1 =
+region==="東日本"
+? "NURO光 10G（月額6,250円）"
+: "NURO光 10G（月額6,030円）";
+
+rank2="SB光 10G（月額6,270円)";
+rank3="ドコモ光 10G（月額6,380円)";
 }
+
+else if(carrier==="docomo"){
+
+rank1=
+house==="マンション"
+? "ドコモ光 1G（月額4,400円）"
+: "ドコモ光 1G（月額5,720円）";
+
+rank2="ニフティ光";
+rank3="ソネット光";
+}
+
 else if(carrier==="au"){
- recommendation="auひかり";
+
+rank1="au光（月額5,610円）";
+rank2="ニフティ光";
+rank3="NURO光";
 }
+
 else if(carrier==="SoftBank"){
- recommendation="ソフトバンク光";
+
+rank1=
+house==="マンション"
+? "SB光 1G（月額4,180円）"
+: "SB光 1G（月額5,720円）";
+
+rank2="NURO光";
+rank3="ソネット光";
 }
+
 else{
- recommendation="楽天ひかり";
+
+rank1=
+house==="マンション"
+? "ニフティ光（月額4,268円）"
+: "ニフティ光（月額5,478円）";
+
+rank2="ソネット光";
+rank3="ドコモ光";
 }
 
 document.getElementById("result").style.display="block";
 
-document.getElementById("result").innerHTML=
-`
-<h2>おすすめ回線</h2>
+document.getElementById("result").innerHTML=`
 
-<p><strong>${recommendation}</strong></p>
+<h2>診断結果</h2>
+
+<h3>🥇 第1位</h3>
+<p>${rank1}</p>
+
+<h3>🥈 第2位</h3>
+<p>${rank2}</p>
+
+<h3>🥉 第3位</h3>
+<p>${rank3}</p>
+
+<hr>
+
+<h3>無料エリア確認</h3>
+
+<p>
+正確な提供可否やキャンペーンは
+住所確認が必要です。
+</p>
 
 <a href="https://lin.ee/OY5RfF4" target="_blank">
 <button>
-LINEで無料相談する
+LINEで無料エリア確認する
 </button>
 </a>
+
 `;
 }
 </script>
