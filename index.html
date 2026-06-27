@@ -286,6 +286,12 @@ function price(name, house){
   10G専用画像が完成したら、ここだけ画像ファイル名を変更すれば差し替えできます。
 */
 function getImage(name){
+  // 10G専用画像が未完成の回線は、料金相違を避けるため画像を表示しない
+  if(name === "ドコモ光 10G") return "";
+  if(name === "ソフトバンク光 10G") return "";
+  if(name === "ニフティ光 10G") return "";
+
+  // NURO画像には2G・10G両方の料金が掲載されているため共通利用
   if(name.includes("NURO")) return "ニューロ光.png";
   if(name.includes("ビッグローブ")) return "ビッグローブ光.png";
   if(name.includes("ドコモ")) return "ドコモ光.png";
