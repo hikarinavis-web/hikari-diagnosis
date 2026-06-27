@@ -3,152 +3,416 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光回線診断ツール Ver5</title>
+<title>光回線診断ツール Ver6</title>
+
 <style>
-body{font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:#f4f6f9;margin:0;padding:20px;color:#222;}
-.container{max-width:820px;margin:auto;background:#fff;padding:30px;border-radius:16px;box-shadow:0 0 15px rgba(0,0,0,.1);}
-h1{text-align:center;margin-bottom:8px;}
-.lead{text-align:center;color:#555;margin-bottom:25px;}
-label{display:block;margin-top:15px;font-weight:bold;}
-select,input{width:100%;padding:12px;margin-top:6px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box;font-size:15px;}
-button{width:100%;padding:15px;margin-top:24px;background:#0070f3;color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer;font-weight:bold;}
-button:hover{background:#0059c9;}
-.result{display:none;margin-top:30px;background:#f8f9fa;padding:22px;border-radius:12px;}
-.card{background:#fff;padding:16px;border-radius:12px;margin:14px 0;border-left:5px solid #0070f3;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.card img{width:100%;border-radius:10px;margin-bottom:14px;display:block;}
-.card h2{margin:4px 0;}
-.price{font-weight:bold;color:#111;}
-.reason{color:#444;line-height:1.7;}
-.note{font-size:14px;color:#555;line-height:1.7;}
-.warning{background:#fff8e1;border-left:5px solid #ffc107;padding:12px;border-radius:8px;margin-top:12px;color:#5f4b00;}
-.line-btn{background:#06c755;}
-.line-btn:hover{background:#05a648;}
-.small{font-size:13px;color:#666;line-height:1.6;}
+:root{
+  --blue:#0878f9;
+  --blue-dark:#005bc4;
+  --green:#06c755;
+  --green-dark:#05a648;
+  --bg:#f4f6f9;
+  --text:#222;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  background:var(--bg);
+  margin:0;
+  padding:20px;
+  color:var(--text);
+}
+
+.container{
+  max-width:840px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+h1{
+  text-align:center;
+  margin:0 0 8px;
+}
+
+.lead{
+  text-align:center;
+  color:#555;
+  margin:0 0 25px;
+  line-height:1.7;
+}
+
+label{
+  display:block;
+  margin-top:16px;
+  font-weight:bold;
+}
+
+select,input{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:15px;
+  background:#fff;
+}
+
+.main-button{
+  width:100%;
+  padding:16px;
+  margin-top:25px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-size:17px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.main-button:hover{background:var(--blue-dark);}
+
+.result{
+  display:none;
+  margin-top:30px;
+  background:#f8f9fa;
+  padding:22px;
+  border-radius:12px;
+}
+
+.card{
+  background:#fff;
+  padding:18px;
+  border-radius:13px;
+  margin:16px 0;
+  border-left:6px solid var(--blue);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+.rank{
+  margin:0 0 12px;
+  font-size:22px;
+}
+
+.plan-name{
+  margin:14px 0 6px;
+  font-size:25px;
+}
+
+.card-image{
+  width:100%;
+  display:block;
+  border-radius:10px;
+  margin:0 0 12px;
+}
+
+.line-link{
+  display:block;
+  text-decoration:none;
+}
+
+.line-button{
+  width:100%;
+  padding:14px;
+  margin:0 0 14px;
+  background:var(--green);
+  color:#fff;
+  border:none;
+  border-radius:9px;
+  font-size:17px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.line-button:hover{background:var(--green-dark);}
+
+.price{
+  font-weight:bold;
+  font-size:18px;
+  color:#111;
+  margin:10px 0;
+}
+
+.reason{
+  color:#444;
+  line-height:1.7;
+  margin-bottom:0;
+}
+
+.note{
+  font-size:14px;
+  color:#555;
+  line-height:1.7;
+}
+
+.warning{
+  background:#fff8e1;
+  border-left:5px solid #ffc107;
+  padding:12px;
+  border-radius:8px;
+  margin:12px 0;
+  color:#5f4b00;
+  line-height:1.7;
+}
+
+.small{
+  font-size:13px;
+  color:#666;
+  line-height:1.6;
+}
+
+@media(max-width:600px){
+  body{padding:10px;}
+  .container{padding:18px;}
+  .result{padding:14px;}
+  .card{padding:13px;}
+  .rank{font-size:19px;}
+  .plan-name{font-size:22px;}
+}
 </style>
 </head>
+
 <body>
-
 <div class="container">
+
 <h1>光回線診断ツール</h1>
-<p class="lead">現在のスマホ会社・利用中回線・住居タイプから、提案しやすい光回線を診断します。</p>
+<p class="lead">
+現在のスマホ会社・利用中回線・利用目的から、案内可能な光回線を診断します。
+</p>
 
-<label>住居タイプ</label>
+<label for="house">住居タイプ</label>
 <select id="house">
-<option>戸建て</option>
-<option>マンション</option>
+  <option value="戸建て">戸建て</option>
+  <option value="マンション">マンション</option>
 </select>
 
-<label>お住まい地域</label>
+<label for="region">お住まい地域</label>
 <select id="region">
-<option>東日本</option>
-<option>西日本</option>
+  <option value="東日本">東日本</option>
+  <option value="西日本">西日本</option>
 </select>
 
-<label>スマホ会社</label>
+<label for="carrier">スマホ会社</label>
 <select id="carrier">
-<option>docomo</option>
-<option>au</option>
-<option>SoftBank</option>
-<option>楽天モバイル</option>
-<option>その他</option>
+  <option value="docomo">docomo</option>
+  <option value="au">au</option>
+  <option value="SoftBank">SoftBank</option>
+  <option value="その他格安スマホ">楽天モバイル・格安スマホ・その他</option>
 </select>
 
-<label>現在利用中の回線</label>
+<label for="currentLine">現在利用中の回線</label>
 <select id="currentLine">
-<option>ドコモ光 1G</option>
-<option>ドコモ光 10G</option>
-<option>SB光</option>
-<option>au光</option>
-<option>NURO光</option>
-<option>ソネット光</option>
-<option>ニフティ光</option>
-<option>ビックローブ光</option>
-<option>ホームルーター</option>
-<option>わからない</option>
-<option>その他</option>
+  <option value="ドコモ光 1G">ドコモ光 1G</option>
+  <option value="ドコモ光 10G">ドコモ光 10G</option>
+  <option value="ソフトバンク光">ソフトバンク光</option>
+  <option value="au光">au光</option>
+  <option value="NURO光">NURO光</option>
+  <option value="ソネット光">ソネット光</option>
+  <option value="ニフティ光">ニフティ光</option>
+  <option value="ビッグローブ光">ビッグローブ光</option>
+  <option value="ホームルーター">ホームルーター</option>
+  <option value="その他・わからない">その他・わからない</option>
 </select>
 
-<label>月額料金</label>
+<label for="fee">現在の月額料金</label>
 <select id="fee">
-<option>4000円未満</option>
-<option>4000～5000円</option>
-<option>5000～6000円</option>
-<option>6000円以上</option>
-<option>わからない</option>
+  <option value="4000円未満">4,000円未満</option>
+  <option value="4000～5000円">4,000～5,000円</option>
+  <option value="5000～6000円">5,000～6,000円</option>
+  <option value="6000円以上">6,000円以上</option>
+  <option value="わからない">わからない</option>
 </select>
 
-<label>利用目的</label>
+<label for="usage">利用目的</label>
 <select id="usage">
-<option>動画視聴</option>
-<option>オンラインゲーム</option>
-<option>在宅ワーク</option>
-<option>家族利用</option>
-<option>普通に使えればOK</option>
+  <option value="普通に使う">普通に使う</option>
+  <option value="動画視聴・SNS">動画視聴・SNS</option>
+  <option value="在宅ワーク">在宅ワーク</option>
+  <option value="オンラインゲーム">オンラインゲーム</option>
+  <option value="高画質動画・大容量通信">高画質動画・大容量通信</option>
 </select>
 
-<label>一番の悩み</label>
+<label for="problem">一番の悩み</label>
 <select id="problem">
-<option>料金</option>
-<option>速度</option>
-<option>安定性</option>
-<option>サポート</option>
-<option>どれを選べばいいかわからない</option>
+  <option value="料金">料金</option>
+  <option value="速度">速度</option>
 </select>
 
-<label>郵便番号</label>
-<input type="text" id="zipcode" placeholder="123-4567">
+<label for="zipcode">郵便番号</label>
+<input type="text" id="zipcode" inputmode="numeric" placeholder="123-4567">
 
-<button onclick="diagnose()">診断する</button>
+<button class="main-button" type="button" onclick="diagnose()">診断する</button>
 
-<div id="result" class="result"></div>
+<div id="result" class="result" aria-live="polite"></div>
+
 </div>
 
 <script>
-function price(name, house, region){
+const LINE_URL = "https://lin.ee/OY5RfF4";
+
+/*
+  表示料金は、提供された料金情報・画像を基準にしています。
+  キャンペーン、契約期間、地域、建物、プロバイダ等により変動する場合があります。
+*/
+function price(name, house){
   const prices = {
-    "ドコモ光 1G": house==="マンション" ? "月額4,400円" : "月額5,720円",
-    "ドコモ光 10G": "月額6,380円",
-    "SB光 1G": house==="マンション" ? "月額4,180円" : "月額5,720円",
-    "SB光 10G": "月額6,270円",
-    "ニフティ光 1G": house==="マンション" ? "月額4,268円" : "月額5,478円",
-    "ニフティ光 10G": "月額6,380円",
-    "ビックローブ光": house==="マンション" ? "月額4,378円〜" : "月額5,478円〜",
-    "au光": "戸建て 月額5,610円",
-    "NURO光 2G": region==="東日本" ? "戸建て 月額5,750円" : "戸建て 月額5,530円",
-    "NURO光 10G": region==="東日本" ? "戸建て 月額6,250円" : "戸建て 月額6,030円"
+    "ドコモ光 1G": house === "マンション" ? "月額4,400円（税込）" : "月額5,720円（税込）",
+    "ドコモ光 10G": "月額6,380円（税込）",
+
+    "ソフトバンク光 1G": house === "マンション" ? "月額4,180円（税込）" : "月額5,720円（税込）",
+    "ソフトバンク光 10G": "月額6,270円（税込）",
+
+    "ニフティ光 1G": house === "マンション" ? "月額4,378円（税込）" : "月額5,720円（税込）",
+    "ニフティ光 10G": "月額6,380円（税込）",
+
+    "ビッグローブ光": house === "マンション" ? "月額4,378円（税込）〜" : "月額5,478円（税込）〜",
+
+    "au光": house === "マンション" ? "月額4,180円（税込）〜" : "月額5,610円（税込）〜",
+
+    "NURO光 2G": "月額5,500円（税込）",
+    "NURO光 10G": "月額6,050円（税込）"
   };
-  return prices[name] || "料金確認が必要";
+
+  return prices[name] || "料金はLINEで確認";
 }
 
+/*
+  現時点では1G・10Gとも同じブランド画像を使用します。
+  10G専用画像が完成したら、ここだけ画像ファイル名を変更すれば差し替えできます。
+*/
 function getImage(name){
   if(name.includes("NURO")) return "ニューロ光.png";
-  if(name.includes("ビックローブ") || name.includes("ビッグローブ")) return "ビッグローブ光.png";
+  if(name.includes("ビッグローブ")) return "ビッグローブ光.png";
   if(name.includes("ドコモ")) return "ドコモ光.png";
-  if(name.includes("SB光") || name.includes("ソフトバンク")) return "ソフトバンク光.png";
+  if(name.includes("ソフトバンク")) return "ソフトバンク光.png";
   if(name.includes("au光")) return "au光.png";
   if(name.includes("ニフティ")) return "ニフティ光.png";
   return "";
 }
 
-function addPlan(list, name, reason, house, region){
+function addPlan(list, name, reason, house){
+  // ソネット光は現在利用中回線としては残すが、提案先には表示しない
   if(name.includes("ソネット光")) return;
-  if(!list.find(p => p.name === name)){
-    list.push({name, reason, price: price(name, house, region), img: getImage(name)});
+
+  if(!list.some(plan => plan.name === name)){
+    list.push({
+      name,
+      reason,
+      price:price(name, house),
+      image:getImage(name)
+    });
   }
 }
 
-function removeNgPlans(plans, house, currentLine){
-  let filtered = plans.filter(p => !p.name.includes("ソネット光"));
+function addSpeedPlans(plans, carrier, currentLine, house){
+  if(carrier === "docomo"){
+    if(currentLine === "ドコモ光 10G"){
+      addPlan(plans, "NURO光 10G", "現在10G利用中のため、別の10G回線候補です。", house);
+      addPlan(plans, "ニフティ光 10G", "料金と速度の両方を比較できる10G候補です。", house);
+      addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの10G候補です。", house);
+    }else{
+      addPlan(plans, "ドコモ光 10G", "ドコモスマホ利用者向けの10G候補です。", house);
+      addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
+      addPlan(plans, "ニフティ光 10G", "高速通信を希望する方向けの10G候補です。", house);
+    }
+  }
+  else if(carrier === "SoftBank"){
+    addPlan(plans, "ソフトバンク光 10G", "SoftBankスマホ利用者向けの10G候補です。", house);
+    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
+    addPlan(plans, "ニフティ光 10G", "高速通信を希望する方向けの10G候補です。", house);
+  }
+  else if(carrier === "au"){
+    addPlan(plans, "ニフティ光 10G", "auスマホ利用者に案内しやすい10G候補です。", house);
+    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
+    addPlan(plans, "ドコモ光 10G", "比較対象として案内可能な10G候補です。", house);
+  }
+  else{
+    addPlan(plans, "ニフティ光 10G", "格安スマホ利用者向けの10G候補です。", house);
+    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
+    addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの10G候補です。", house);
+  }
+}
 
-  if(currentLine === "ソネット光"){
-    filtered = filtered.filter(p => !p.name.includes("NURO光"));
+function addAuNormalPlans(plans, house, currentLine){
+  if(house === "戸建て"){
+    if(currentLine === "au光"){
+      addPlan(plans, "ニフティ光 1G", "au光利用中の乗り換え候補です。", house);
+      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
+      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
+    }
+    else if(currentLine === "ソネット光"){
+      addPlan(plans, "ニフティ光 1G", "ソネット光利用中の乗り換え候補です。", house);
+      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
+      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
+    }
+    else if(currentLine === "ニフティ光"){
+      addPlan(plans, "au光", "ニフティ光利用中の乗り換え候補です。", house);
+      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
+      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
+    }
+    else if(currentLine === "ビッグローブ光"){
+      addPlan(plans, "ニフティ光 1G", "ビッグローブ光利用中の乗り換え候補です。", house);
+      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
+      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
+    }
+    else{
+      addPlan(plans, "ニフティ光 1G", "auスマホ利用者に案内しやすい候補です。", house);
+      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
+      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
+    }
+  }else{
+    addPlan(plans, "ニフティ光 1G", "マンション向けの料金で案内しやすい候補です。", house);
+    addPlan(plans, "ビッグローブ光", "マンション向けの候補です。", house);
+    addPlan(plans, "ドコモ光 1G", "建物状況を確認しながら案内できる候補です。", house);
+  }
+}
+
+function addDocomoNormalPlans(plans, house, currentLine){
+  if(currentLine === "ドコモ光 10G"){
+    addPlan(plans, "NURO光 2G", "ドコモ光10G利用中の乗り換え候補です。", house);
+    addPlan(plans, "NURO光 10G", "現在と同じ10Gクラスで比較できる候補です。", house);
+    return;
   }
 
-  if(house === "マンション"){
-    filtered = filtered.filter(p => !p.name.includes("au光") && !p.name.includes("NURO光"));
+  if(currentLine === "ドコモ光 1G"){
+    addPlan(plans, "ドコモ光 10G", "現在のドコモ光1Gから10Gへの変更候補です。", house);
+    addPlan(plans, "NURO光 2G", "別回線の速度重視候補です。", house);
+    addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
+    return;
   }
 
-  return filtered;
+  addPlan(plans, "ドコモ光 1G", "ドコモスマホ利用者向けの基本候補です。", house);
+  addPlan(plans, "ドコモ光 10G", "高速通信を希望する方向けの候補です。", house);
+  addPlan(plans, "NURO光 2G", "別回線の速度重視候補です。", house);
+}
+
+function addSoftBankNormalPlans(plans, house, currentLine){
+  if(currentLine === "ソフトバンク光"){
+    addPlan(plans, "NURO光 2G", "ソフトバンク光利用中の乗り換え候補です。", house);
+    addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
+    return;
+  }
+
+  if(currentLine === "NURO光"){
+    addPlan(plans, "ソフトバンク光 1G", "NURO光利用中の乗り換え候補です。", house);
+    addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの候補です。", house);
+    return;
+  }
+
+  addPlan(plans, "ソフトバンク光 1G", "SoftBankスマホ利用者向けの基本候補です。", house);
+  addPlan(plans, "NURO光 2G", "速度重視の別候補です。", house);
+  addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
+}
+
+function addOtherCarrierPlans(plans, house){
+  addPlan(plans, "ニフティ光 1G", "格安スマホ・その他スマホ利用者に案内しやすい候補です。", house);
+  addPlan(plans, "ビッグローブ光", "格安スマホ利用者向けの比較候補です。", house);
+  addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
 }
 
 function diagnose(){
@@ -159,174 +423,119 @@ function diagnose(){
   const fee = document.getElementById("fee").value;
   const usage = document.getElementById("usage").value;
   const problem = document.getElementById("problem").value;
-  const zipcode = document.getElementById("zipcode").value;
+  const zipcode = document.getElementById("zipcode").value.trim();
+
+  const highSpeedUsage =
+    usage === "オンラインゲーム" ||
+    usage === "高画質動画・大容量通信";
+
+  const speedMode =
+    problem === "速度" ||
+    highSpeedUsage;
 
   let plans = [];
-  let ruleTitle = "おすすめ回線";
+  let ruleTitle = "";
   let caution = "";
 
-  if(carrier === "au" && house === "戸建て"){
-    ruleTitle = "auスマホ・戸建て向け";
+  if(speedMode){
+    ruleTitle = "速度重視・10Gおすすめ";
+    addSpeedPlans(plans, carrier, currentLine, house);
 
-    if(currentLine === "au光"){
-      addPlan(plans, "ニフティ光 1G", "au光利用中の乗り換え候補として提案しやすい回線です。", house, region);
-      addPlan(plans, "ビックローブ光", "auスマホ利用者向けの候補です。", house, region);
-      addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
+    caution =
+      "10G回線は戸建て・マンションとも住所や建物設備により提供可否が異なります。LINEで正確なエリア確認を行います。";
+  }
+  else{
+    if(carrier === "au"){
+      ruleTitle = "auスマホ利用中の方向け";
+      addAuNormalPlans(plans, house, currentLine);
     }
-    else if(currentLine === "ソネット光"){
-      addPlan(plans, "ニフティ光 1G", "ソネット光利用中の乗り換え候補として提案しやすい回線です。", house, region);
-      addPlan(plans, "ビックローブ光", "auスマホ利用者向けの候補です。", house, region);
-      addPlan(plans, "au光", "auスマホ利用者向けの候補です。", house, region);
+    else if(carrier === "docomo"){
+      ruleTitle = "ドコモスマホ利用中の方向け";
+      addDocomoNormalPlans(plans, house, currentLine);
     }
-    else if(currentLine === "ニフティ光"){
-      addPlan(plans, "au光", "ニフティ光利用中の乗り換え候補です。", house, region);
-      addPlan(plans, "ビックローブ光", "auスマホ利用者向けの候補です。", house, region);
-      addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
-    }
-    else if(currentLine === "ビックローブ光"){
-      addPlan(plans, "ニフティ光 1G", "ビックローブ光利用中の乗り換え候補です。", house, region);
-      addPlan(plans, "au光", "auスマホ利用者向けの候補です。", house, region);
-      addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
+    else if(carrier === "SoftBank"){
+      ruleTitle = "SoftBankスマホ利用中の方向け";
+      addSoftBankNormalPlans(plans, house, currentLine);
     }
     else{
-      addPlan(plans, "ニフティ光 1G", "auスマホ利用者に提案しやすい候補です。", house, region);
-      addPlan(plans, "ビックローブ光", "auスマホ利用者向けの候補です。", house, region);
-      addPlan(plans, "au光", "auスマホ利用者向けの候補です。", house, region);
+      ruleTitle = "楽天モバイル・格安スマホ・その他の方向け";
+      addOtherCarrierPlans(plans, house);
+    }
+
+    if(house === "マンション" && plans.some(plan => plan.name.includes("NURO") || plan.name.includes("au光"))){
+      caution =
+        "マンションではNURO光・au光が建物設備により利用できない場合があります。LINEで住所確認後、提供可能な回線をご案内します。";
     }
   }
 
-  else if(currentLine === "ニフティ光"){
-    ruleTitle = "ニフティ光利用中向け";
-    addPlan(plans, "au光", "戸建ての場合の候補です。提供可否確認が必要です。", house, region);
-    addPlan(plans, "ビックローブ光", "ニフティ光利用中の別候補として案内可能です。", house, region);
-    if(house === "戸建て") addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
-  }
-  else if(currentLine === "ソネット光"){
-    ruleTitle = "ソネット光利用中向け";
-    addPlan(plans, "ニフティ光 1G", "ソネット光利用中の乗り換え候補として提案しやすい回線です。", house, region);
-    addPlan(plans, "ビックローブ光", "ソネット光利用中の別候補として案内可能です。", house, region);
-    addPlan(plans, "au光", "戸建ての場合の候補です。提供可否確認が必要です。", house, region);
-  }
-  else if(currentLine === "ビックローブ光"){
-    ruleTitle = "ビックローブ光利用中向け";
-    addPlan(plans, "ニフティ光 1G", "ビックローブ光利用中の乗り換え候補として提案しやすい回線です。", house, region);
-    addPlan(plans, "au光", "戸建ての場合の候補です。提供可否確認が必要です。", house, region);
-    if(house === "戸建て") addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
-  }
-  else if(currentLine === "au光"){
-    ruleTitle = "au光利用中向け";
-    addPlan(plans, "ニフティ光 1G", "au光利用中の乗り換え候補として提案しやすい回線です。", house, region);
-    addPlan(plans, "ビックローブ光", "au光利用中の別候補として案内可能です。", house, region);
-    if(house === "戸建て") addPlan(plans, "NURO光 2G", "速度重視の候補です。", house, region);
-  }
+  const topPlans = plans.slice(0,3);
 
-  else if(carrier === "docomo" && currentLine === "ドコモ光 1G"){
-    ruleTitle = "ドコモスマホ・ドコモ光1G利用中向け";
-    addPlan(plans, "ドコモ光 10G", "同回線の10Gアップグレード候補です。", house, region);
-    if(house === "戸建て"){
-      addPlan(plans, "NURO光 2G", "速度重視の別候補として案内可能です。", house, region);
-      addPlan(plans, "NURO光 10G", "高速回線を希望する方向けの候補です。", house, region);
-    }
-    addPlan(plans, "ニフティ光 1G", "料金重視の場合の別候補です。", house, region);
-  }
-  else if(carrier === "docomo"){
-    ruleTitle = "ドコモスマホ利用中向け";
-    addPlan(plans, "ドコモ光 1G", "ドコモスマホ利用者に提案しやすい回線です。", house, region);
-    addPlan(plans, "ドコモ光 10G", "高速回線を希望する方向けです。", house, region);
-    if(house === "戸建て"){
-      addPlan(plans, "NURO光 2G", "速度重視の別候補として案内可能です。", house, region);
-    }
-  }
-
-  else if(carrier === "SoftBank" && currentLine === "SB光"){
-    ruleTitle = "SoftBankスマホ・SB光利用中向け";
-    if(house === "戸建て"){
-      addPlan(plans, "NURO光 2G", "SB光利用中の乗り換え候補として案内可能です。", house, region);
-      addPlan(plans, "NURO光 10G", "速度重視の方におすすめです。", house, region);
-    }
-    addPlan(plans, "ニフティ光 1G", "マンションや料金重視の場合の候補です。", house, region);
-  }
-  else if(carrier === "SoftBank"){
-    ruleTitle = "SoftBankスマホ利用中・他社回線向け";
-    addPlan(plans, "SB光 1G", "SoftBankスマホ利用者に提案しやすい回線です。", house, region);
-    if(house === "戸建て"){
-      addPlan(plans, "NURO光 2G", "速度重視の別候補として案内可能です。", house, region);
-      addPlan(plans, "NURO光 10G", "高速回線を希望する方向けです。", house, region);
-    }
-    addPlan(plans, "ニフティ光 1G", "料金重視の場合の別候補です。", house, region);
-  }
-
-  else {
-    ruleTitle = "総合おすすめ";
-    if(problem === "料金" || fee === "6000円以上"){
-      addPlan(plans, "ニフティ光 1G", "割引後料金が安く、料金重視の方におすすめです。", house, region);
-      addPlan(plans, "SB光 1G", "マンション料金が安く、候補にしやすい回線です。", house, region);
-      addPlan(plans, "ドコモ光 1G", "安定した候補として提案可能です。", house, region);
-    } else if(usage === "オンラインゲーム" && house === "戸建て" && currentLine !== "ソネット光"){
-      addPlan(plans, "NURO光 10G", "オンラインゲームなど速度重視の方におすすめです。", house, region);
-      addPlan(plans, "ドコモ光 10G", "10G回線の候補として案内可能です。", house, region);
-      addPlan(plans, "SB光 10G", "10G回線の候補として案内可能です。", house, region);
-    } else {
-      addPlan(plans, "ニフティ光 1G", "料金・提案しやすさのバランスが良い回線です。", house, region);
-      addPlan(plans, "ドコモ光 1G", "幅広く案内しやすい回線です。", house, region);
-      addPlan(plans, "SB光 1G", "SoftBank系の候補として案内可能です。", house, region);
-    }
-  }
-
-  if(house === "マンション"){
-    addPlan(plans, "ニフティ光 1G", "マンション向け料金が安く提案しやすい回線です。", house, region);
-    addPlan(plans, "SB光 1G", "マンション向け料金が安く候補にしやすい回線です。", house, region);
-    addPlan(plans, "ドコモ光 1G", "マンションでも提案しやすい回線です。", house, region);
-  }
-
-  plans = removeNgPlans(plans, house, currentLine);
-
-  if(plans.length < 3){
-    addPlan(plans, "ニフティ光 1G", "補完候補として案内可能です。", house, region);
-    addPlan(plans, "ドコモ光 1G", "補完候補として案内可能です。", house, region);
-    addPlan(plans, "SB光 1G", "補完候補として案内可能です。", house, region);
-    plans = removeNgPlans(plans, house, currentLine);
-  }
-
-  const top3 = plans.slice(0,3);
-
-  if(house === "マンション"){
-    caution = "マンションの場合、au光・NURO光は建物設備により提供できない可能性が高いため、上位候補から外しています。";
-  }
-
-  let html = `<h2>診断結果</h2>
-  <p class="note">${ruleTitle}</p>`;
+  let html = `
+    <h2>診断結果</h2>
+    <p class="note">${ruleTitle}</p>
+  `;
 
   if(caution){
     html += `<div class="warning">${caution}</div>`;
   }
 
-  html += `<p class="small">郵便番号：${zipcode ? zipcode : "未入力"} / 住居タイプ：${house} / 現在回線：${currentLine}</p>`;
+  html += `
+    <p class="small">
+      郵便番号：${zipcode || "未入力"} /
+      住居タイプ：${house} /
+      地域：${region} /
+      現在回線：${currentLine} /
+      現在料金：${fee}
+    </p>
+  `;
 
-  top3.forEach((p, i) => {
-    const medal = i===0 ? "🥇 第1位" : i===1 ? "🥈 第2位" : "🥉 第3位";
+  topPlans.forEach((plan, index) => {
+    const rank =
+      index === 0 ? "🥇 第1位" :
+      index === 1 ? "🥈 第2位" :
+      "🥉 第3位";
+
     html += `
-      <div class="card">
-        ${p.img ? `<img src="${p.img}" alt="${p.name}">` : ""}
-        <h3>${medal}</h3>
-        <h2>${p.name}</h2>
-        <p class="price">${p.price}</p>
-        <p class="reason">${p.reason}</p>
-      </div>
+      <section class="card">
+        <h3 class="rank">${rank}</h3>
+        <h2 class="plan-name">${plan.name}</h2>
+
+        ${plan.image ? `
+          <img
+            class="card-image"
+            src="${plan.image}"
+            alt="${plan.name}の案内画像"
+          >
+        ` : ""}
+
+        <a
+          class="line-link"
+          href="${LINE_URL}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="${plan.name}についてLINEで無料相談"
+        >
+          <button class="line-button" type="button">
+            LINEで無料相談
+          </button>
+        </a>
+
+        <p class="price">${plan.price}</p>
+        <p class="reason">${plan.reason}</p>
+      </section>
     `;
   });
 
   html += `
-    <hr>
-    <h3>無料エリア確認</h3>
-    <p class="note">正確な提供可否・キャンペーン・建物対応状況は住所確認が必要です。</p>
-    <a href="https://lin.ee/OY5RfF4" target="_blank">
-      <button class="line-btn">LINEで無料エリア確認する</button>
-    </a>
+    <p class="note">
+      ※表示料金は税込の月額料金です。キャンペーン、契約内容、地域、建物設備などにより異なる場合があります。
+    </p>
   `;
 
-  document.getElementById("result").style.display="block";
-  document.getElementById("result").innerHTML = html;
+  const result = document.getElementById("result");
+  result.innerHTML = html;
+  result.style.display = "block";
+  result.scrollIntoView({behavior:"smooth", block:"start"});
 }
 </script>
 
