@@ -31,7 +31,7 @@ body{
 }
 
 .container{
-  width:min(100%,860px);
+  width:min(100%,780px);
   margin:0 auto;
   padding:30px;
   background:#fff;
@@ -379,6 +379,295 @@ select{
   .image-placeholder{min-height:190px;font-size:22px;}
   .trust-badges{justify-content:flex-start;}
 }
+/* 最終UX調整 */
+select,
+.diagnose-button,
+.line-button,
+.other-toggle,
+.candidate-button,
+.reset-button,
+.retry-button,
+.faq-item summary{
+  min-height:44px;
+}
+
+.start-info{
+  margin:20px 0 0;
+  padding:13px 15px;
+  border-radius:11px;
+  background:var(--soft-blue);
+  border:1px solid #dceaff;
+  text-align:center;
+  line-height:1.7;
+}
+
+.start-info strong{display:block;}
+
+.diagnose-button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.loading{
+  display:none;
+  margin-top:24px;
+  padding:26px 18px;
+  border-radius:14px;
+  background:#f8fbff;
+  border:1px solid #d7e8ff;
+  text-align:center;
+}
+
+.spinner{
+  width:38px;
+  height:38px;
+  margin:0 auto 14px;
+  border:4px solid #d9e9ff;
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin .85s linear infinite;
+}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.loading-title{
+  margin:0 0 6px;
+  font-size:21px;
+  font-weight:800;
+}
+
+.loading-text{
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.condition-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:12px;
+  row-gap:7px;
+}
+
+.plan-image{
+  width:91%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.image-placeholder{
+  width:91%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.line-early-note{
+  margin:15px 0 0;
+  text-align:center;
+  color:#333;
+  font-weight:700;
+  line-height:1.6;
+}
+
+.line-button[aria-disabled="true"]{
+  opacity:.65;
+  pointer-events:none;
+}
+
+.reset-button,
+.retry-button{
+  width:100%;
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:11px;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.reset-button{
+  background:#fff;
+  color:var(--blue);
+  border:1px solid var(--blue);
+}
+
+.retry-button{
+  background:var(--blue);
+  color:#fff;
+  border:0;
+}
+
+.faq-item{
+  margin-top:8px;
+  border:1px solid #e1e6ec;
+  border-radius:10px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.faq-item summary{
+  padding:12px 14px;
+  cursor:pointer;
+  font-weight:700;
+  line-height:1.45;
+  list-style:none;
+}
+
+.faq-item summary::-webkit-details-marker{display:none;}
+
+.faq-item summary::after{
+  content:"＋";
+  float:right;
+  color:var(--blue);
+}
+
+.faq-item[open] summary::after{content:"－";}
+
+.faq-answer{
+  margin:0;
+  padding:0 14px 13px;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.no-plan,
+.communication-error{
+  padding:18px;
+  border-radius:12px;
+  background:#fff8e1;
+  border:1px solid #f3d98b;
+  line-height:1.7;
+}
+
+@media(max-width:640px){
+  body{
+    font-size:17px;
+  }
+
+  .container{
+    padding:16px;
+  }
+
+  h1{
+    font-size:29px;
+  }
+
+  .lead{
+    margin-bottom:19px;
+    font-size:17px;
+  }
+
+  .form-group{
+    margin-top:13px;
+  }
+
+  label,
+  select{
+    font-size:17px;
+  }
+
+  .start-info{
+    margin-top:16px;
+    padding:11px 12px;
+    font-size:17px;
+  }
+
+  .result{
+    margin-top:20px;
+    padding:12px;
+  }
+
+  .result-heading{
+    margin-bottom:10px;
+    font-size:23px;
+  }
+
+  .recommend-card{
+    padding:13px;
+  }
+
+  .complete-box{
+    margin-bottom:11px;
+    padding:12px;
+  }
+
+  .complete-title{
+    font-size:23px;
+  }
+
+  .complete-text{
+    font-size:17px;
+  }
+
+  .plan-name{
+    margin:9px 0 12px;
+    font-size:24px;
+  }
+
+  .info-card{
+    margin-top:12px;
+    padding:12px;
+  }
+
+  .section-title{
+    margin-bottom:8px;
+    font-size:22px;
+  }
+
+  .check-list{
+    gap:5px;
+    font-size:17px;
+  }
+
+  .condition-grid{
+    column-gap:8px;
+    row-gap:5px;
+  }
+
+  .card-note,
+  .line-small,
+  .footer-note{
+    font-size:14px;
+  }
+
+  .plan-image,
+  .image-placeholder{
+    width:91%;
+    margin-top:13px;
+  }
+
+  .image-placeholder{
+    min-height:175px;
+    font-size:22px;
+  }
+
+  .line-early-note,
+  .consult-intro{
+    margin-top:13px;
+    font-size:17px;
+  }
+
+  .line-check-box,
+  .trust-area,
+  .faq-box{
+    margin-top:12px;
+    padding:12px;
+  }
+
+  .trust-badges{
+    justify-content:flex-start;
+    margin-bottom:10px;
+  }
+
+  .other-section{
+    margin-top:14px;
+    padding-top:14px;
+  }
+
+  .price-note{
+    font-size:17px;
+  }
+}
+
 </style>
 </head>
 
@@ -390,7 +679,7 @@ select{
 
 <div class="form-group">
   <label for="house">① 住居タイプ<span class="required">必須</span></label>
-  <select id="house">
+  <select id="house" data-label="住居タイプ">
     <option value="">選択してください</option>
     <option value="戸建て">戸建て</option>
     <option value="マンション">マンション</option>
@@ -399,7 +688,7 @@ select{
 
 <div class="form-group">
   <label for="region">② お住まい地域<span class="required">必須</span></label>
-  <select id="region">
+  <select id="region" data-label="お住まいの地域">
     <option value="">選択してください</option>
     <option value="北海道">北海道</option>
     <option value="東日本">東日本</option>
@@ -409,7 +698,7 @@ select{
 
 <div class="form-group">
   <label for="carrier">③ スマホ会社<span class="required">必須</span></label>
-  <select id="carrier">
+  <select id="carrier" data-label="携帯会社">
     <option value="">選択してください</option>
     <option value="docomo">docomo</option>
     <option value="au">au</option>
@@ -420,7 +709,7 @@ select{
 
 <div class="form-group">
   <label for="currentLine">④ 現在利用中の回線<span class="required">必須</span></label>
-  <select id="currentLine">
+  <select id="currentLine" data-label="現在利用中の回線">
     <option value="">選択してください</option>
     <option value="ドコモ光 1G">ドコモ光 1G</option>
     <option value="ドコモ光 10G">ドコモ光 10G</option>
@@ -437,7 +726,7 @@ select{
 
 <div class="form-group">
   <label for="problem">⑤ 一番の悩み<span class="required">必須</span></label>
-  <select id="problem">
+  <select id="problem" data-label="一番の悩み">
     <option value="">選択してください</option>
     <option value="料金">料金</option>
     <option value="速度">速度</option>
@@ -447,8 +736,21 @@ select{
   </select>
 </div>
 
-<button class="diagnose-button" type="button" onclick="diagnose()">診断する</button>
+<div class="start-info">
+  <strong>📱 約30秒で診断できます</strong>
+  ✔ 全国対応・相談無料
+</div>
+
+<button id="diagnoseButton" class="diagnose-button" type="button" onclick="startDiagnosis()">
+  診断する
+</button>
 <div id="error" class="error"></div>
+
+<section id="loading" class="loading" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+  <p class="loading-title">診断中…</p>
+  <p class="loading-text">あなたに最適な光回線を診断しています。</p>
+</section>
 
 <section id="result" class="result" aria-live="polite">
   <h2 class="result-heading">診断結果</h2>
@@ -457,8 +759,8 @@ select{
     <div class="complete-box">
       <p class="complete-title">✅ 診断完了！</p>
       <p class="complete-text">
-        あなたの診断条件では<br>
-        「<strong id="completionPlanName"></strong>」をご案内しています。
+        あなたが入力した条件をもとに診断した結果、<br>
+        「<strong id="completionPlanName"></strong>」をおすすめします。
       </p>
     </div>
 
@@ -466,11 +768,28 @@ select{
 
     <div class="info-card blue">
       <h3 class="section-title">診断条件</h3>
-      <ul id="conditionList" class="check-list"></ul>
+      <ul id="conditionList" class="check-list condition-grid"></ul>
       <p class="card-note">この条件をもとにご案内しています。</p>
     </div>
 
     <div id="imageArea"></div>
+
+    <p class="line-early-note">
+      料金・工事費・提供エリアなどを無料で確認できます。
+    </p>
+
+    <a
+      id="lineButton"
+      class="line-button"
+      href="https://lin.ee/OY5RfF4"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 LINEで無料診断・相談
+    </a>
+    <p class="line-small">
+      料金比較・提供エリア確認だけでもお気軽にご相談ください。
+    </p>
 
     <div class="info-card blue">
       <h3 class="section-title">このような方におすすめ</h3>
@@ -498,31 +817,17 @@ select{
       </ul>
     </div>
 
-    <a
-      id="lineButton"
-      class="line-button"
-      href="https://lin.ee/OY5RfF4"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      💬 LINEで無料相談する
-    </a>
-    <p class="line-small">
-      料金比較・提供エリア確認だけでもお気軽にご相談ください。
-    </p>
-
     <div class="trust-area">
       <h3 class="trust-title">相談無料</h3>
 
       <div class="trust-badges">
-        <span class="trust-badge">全国対応（相談受付）</span>
+        <span class="trust-badge">全国対応</span>
         <span class="trust-badge">相談無料</span>
-        <span class="trust-badge">無理な営業なし</span>
+        <span class="trust-badge">無理な勧誘はありません</span>
       </div>
 
       <ul class="check-list">
         <li>✓ ご相談だけでもOK</li>
-        <li>✓ 無理な営業はありません</li>
         <li>✓ 現在のご利用状況と比較できます</li>
         <li>✓ 提供エリアを確認できます</li>
         <li>✓ ご納得いただいた場合のみご案内します</li>
@@ -531,17 +836,35 @@ select{
 
     <div class="faq-box">
       <h3 class="section-title">よくあるご相談</h3>
-      <ul class="faq-list">
-        <li>今より料金を抑えられますか？</li>
-        <li>乗り換えた方がお得ですか？</li>
-        <li>工事費は本当に実質0円ですか？</li>
-        <li>キャッシュバック対象になりますか？</li>
-        <li>今のまま使った方がいいですか？</li>
-      </ul>
+
+      <details class="faq-item">
+        <summary>今より料金を抑えられますか？</summary>
+        <p class="faq-answer">現在の契約内容と比較しながらご案内します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>乗り換えた方がお得ですか？</summary>
+        <p class="faq-answer">料金・スマホ会社・利用状況を確認して比較します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>工事費は本当に実質0円ですか？</summary>
+        <p class="faq-answer">対象プランや適用条件を確認してご説明します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>キャッシュバック対象になりますか？</summary>
+        <p class="faq-answer">お申し込み時期や契約条件を確認してご案内します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>今のまま使った方がいいですか？</summary>
+        <p class="faq-answer">無理な乗り換えは勧めず、現在の契約との比較をご案内します。</p>
+      </details>
     </div>
 
     <div class="other-section">
-      <p class="other-guide">他の回線も比較してご検討いただけます。</p>
+      <p class="other-guide">条件に近い他の回線も確認できます。</p>
       <button id="otherToggle" class="other-toggle" type="button" onclick="toggleCandidates()">
         他のおすすめを見る
       </button>
@@ -552,9 +875,13 @@ select{
       </div>
     </div>
 
+    <button class="reset-button" type="button" onclick="restartDiagnosis()">
+      診断をやり直す
+    </button>
+
     <p class="footer-note">
-      ※掲載内容は一般的なご案内です。<br>
-      料金・キャンペーン・提供エリア・適用条件は、ご契約時期・提供エリア・回線会社・契約内容により異なる場合があります。
+      ※診断結果は入力いただいた内容をもとにご案内しています。提供エリア・料金・キャンペーン内容は変更となる場合があります。<br>
+      ※掲載内容は一般的なご案内です。料金・キャンペーン・提供エリア・適用条件は、ご契約時期・提供エリア・回線会社・契約内容により異なる場合があります。
     </p>
   </article>
 </section>
@@ -563,6 +890,8 @@ select{
 
 <script>
 const LINE_URL = "https://lin.ee/OY5RfF4";
+const STORAGE_KEY = "hikariDiagnosisFormV1";
+const SCROLL_KEY = "hikariDiagnosisScrollY";
 
 const plans = {
   docomo1g:{
@@ -615,7 +944,7 @@ const plans = {
     ],
     reasons:[
       "SoftBankセット割対応",
-      "違約金還元制度あり",
+      "工事費実質0円対象プランあり",
       "IPv6高速通信対応"
     ]
   },
@@ -688,7 +1017,7 @@ const plans = {
     reasons:[
       "月額料金を比較しやすい",
       "au・UQセット割対応",
-      "IPv6高速通信対応"
+      "工事費実質0円対象プランあり"
     ]
   },
 
@@ -707,7 +1036,7 @@ const plans = {
     reasons:[
       "au・UQセット割対応",
       "独自回線で混雑に強い",
-      "高速通信に対応"
+      "工事費実質0円対象プランあり"
     ]
   },
 
@@ -724,7 +1053,7 @@ const plans = {
     reasons:[
       "SoftBank割対応",
       "高速通信に対応",
-      "工事回数を抑えるプラン"
+      "工事費実質0円対象プランあり"
     ]
   },
 
@@ -749,6 +1078,8 @@ const plans = {
 let diagnosisPlans = [];
 let selectedPlanIndex = 0;
 let diagnosisConditions = [];
+let diagnosisTimer = null;
+let lineLocked = false;
 
 function getNormalPlans(carrier,currentLine,house){
   if(carrier === "au"){
@@ -791,38 +1122,89 @@ function getSpeedPlans(carrier,currentLine){
 }
 
 function getCarrierCondition(carrier){
-  if(carrier === "docomo") return "docomoスマホ利用";
-  if(carrier === "au") return "auスマホ利用";
-  if(carrier === "SoftBank") return "SoftBankスマホ利用";
-  return "格安スマホ・その他";
+  if(carrier === "docomo") return "docomo利用";
+  if(carrier === "au") return "au利用";
+  if(carrier === "SoftBank") return "SoftBank利用";
+  return "格安スマホ等";
 }
 
 function getProblemCondition(problem){
-  if(problem === "料金") return "月額料金を重視";
-  if(problem === "速度") return "通信速度を重視";
-  if(problem === "工事") return "工事内容を確認したい";
-  if(problem === "引っ越し") return "引っ越し先で利用予定";
-  return "新規契約を検討中";
+  if(problem === "料金") return "月額料金重視";
+  if(problem === "速度") return "通信速度重視";
+  if(problem === "工事") return "工事内容確認";
+  if(problem === "引っ越し") return "引っ越し予定";
+  return "新規契約検討";
+}
+
+function saveFormValues(){
+  const data = {};
+  ["house","region","carrier","currentLine","problem"].forEach(id => {
+    data[id] = document.getElementById(id).value;
+  });
+
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  }catch(error){}
+}
+
+function restoreFormValues(){
+  try{
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+
+    Object.entries(data).forEach(([id,value]) => {
+      const element = document.getElementById(id);
+      if(element && value) element.value = value;
+    });
+  }catch(error){}
 }
 
 function validateForm(){
   const ids = ["house","region","carrier","currentLine","problem"];
-  const missing = ids.some(id => !document.getElementById(id).value);
   const error = document.getElementById("error");
 
-  if(missing){
-    error.textContent = "必須項目をすべて選択してください。";
-    error.style.display = "block";
-    return false;
+  for(const id of ids){
+    const element = document.getElementById(id);
+
+    if(!element.value){
+      error.textContent = `${element.dataset.label}を選択してください。`;
+      error.style.display = "block";
+      element.focus();
+      return false;
+    }
   }
 
   error.style.display = "none";
   return true;
 }
 
-function diagnose(){
+function startDiagnosis(){
   if(!validateForm()) return;
 
+  saveFormValues();
+
+  const button = document.getElementById("diagnoseButton");
+  button.disabled = true;
+  button.textContent = "診断中…";
+
+  document.getElementById("result").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("loading").scrollIntoView({behavior:"smooth",block:"center"});
+
+  if(diagnosisTimer) clearTimeout(diagnosisTimer);
+
+  diagnosisTimer = setTimeout(() => {
+    try{
+      runDiagnosis();
+    }catch(error){
+      showCommunicationError();
+    }finally{
+      button.disabled = false;
+      button.textContent = "診断する";
+    }
+  },1300);
+}
+
+function runDiagnosis(){
   const house = document.getElementById("house").value;
   const region = document.getElementById("region").value;
   const carrier = document.getElementById("carrier").value;
@@ -839,6 +1221,13 @@ function diagnose(){
     region,
     getProblemCondition(problem)
   ];
+
+  document.getElementById("loading").style.display = "none";
+
+  if(!Array.isArray(diagnosisPlans) || diagnosisPlans.length === 0){
+    showNoPlans();
+    return;
+  }
 
   selectedPlanIndex = 0;
   renderSelectedPlan();
@@ -857,6 +1246,11 @@ function renderSelectedPlan(){
   const plan = plans[planKey];
   const house = document.getElementById("house").value;
 
+  if(!plan){
+    showNoPlans();
+    return;
+  }
+
   document.getElementById("completionPlanName").textContent = plan.name;
   document.getElementById("planName").textContent = plan.name;
 
@@ -871,6 +1265,8 @@ function renderSelectedPlan(){
         class="plan-image"
         src="${plan.image}"
         alt="${plan.name}の回線画像"
+        loading="lazy"
+        decoding="async"
       >
     `;
   }else{
@@ -888,10 +1284,31 @@ function renderSelectedPlan(){
   document.getElementById("reasonList").innerHTML =
     plan.reasons.slice(0,3).map(reason => `<li>✓ ${reason}</li>`).join("");
 
-  document.getElementById("lineButton").href = LINE_URL;
+  setupLineButton();
 
   document.getElementById("priceNote").textContent =
     `${plan.price(house)}　※提供条件等により異なる場合があります。`;
+}
+
+function setupLineButton(){
+  const lineButton = document.getElementById("lineButton");
+  lineButton.href = LINE_URL;
+  lineButton.setAttribute("aria-disabled","false");
+
+  lineButton.onclick = event => {
+    if(lineLocked){
+      event.preventDefault();
+      return;
+    }
+
+    lineLocked = true;
+    lineButton.setAttribute("aria-disabled","true");
+
+    setTimeout(() => {
+      lineLocked = false;
+      lineButton.setAttribute("aria-disabled","false");
+    },2000);
+  };
 }
 
 function renderCandidateButtons(){
@@ -916,14 +1333,13 @@ function renderCandidateButtons(){
 }
 
 function selectCandidate(index){
+  const scrollPosition = window.scrollY;
+
   selectedPlanIndex = index;
   renderSelectedPlan();
   renderCandidateButtons();
 
-  document.querySelector(".recommend-card").scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+  requestAnimationFrame(() => window.scrollTo(0,scrollPosition));
 }
 
 function toggleCandidates(){
@@ -936,6 +1352,75 @@ function toggleCandidates(){
     ? "他のおすすめを閉じる"
     : "他のおすすめを見る";
 }
+function restartDiagnosis(){
+  document.getElementById("result").style.display = "none";
+  document.getElementById("loading").style.display = "none";
+  document.querySelector(".container").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function showNoPlans(){
+  document.getElementById("loading").style.display = "none";
+
+  const result = document.getElementById("result");
+  result.innerHTML = `
+    <div class="no-plan">
+      <h2>診断結果</h2>
+      <p>
+        お住まいの地域や条件によっては、ご案内できる回線がない場合があります。
+        詳しくはLINEよりお気軽にご相談ください。
+      </p>
+      <a class="line-button" href="${LINE_URL}" target="_blank" rel="noopener noreferrer">
+        💬 LINEで無料診断・相談
+      </a>
+      <button class="reset-button" type="button" onclick="restartDiagnosis()">
+        診断をやり直す
+      </button>
+    </div>
+  `;
+
+  result.style.display = "block";
+  result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function showCommunicationError(){
+  document.getElementById("loading").style.display = "none";
+
+  const result = document.getElementById("result");
+  result.innerHTML = `
+    <div class="communication-error">
+      <h2>診断を完了できませんでした</h2>
+      <p>通信環境をご確認のうえ、再度お試しください。</p>
+      <button class="retry-button" type="button" onclick="startDiagnosis()">
+        もう一度診断する
+      </button>
+    </div>
+  `;
+
+  result.style.display = "block";
+  result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+document.addEventListener("DOMContentLoaded",() => {
+  restoreFormValues();
+
+  document.querySelectorAll("select").forEach(element => {
+    element.addEventListener("change",saveFormValues);
+  });
+
+  try{
+    const savedY = Number(sessionStorage.getItem(SCROLL_KEY) || 0);
+    if(savedY > 0){
+      requestAnimationFrame(() => window.scrollTo(0,savedY));
+    }
+  }catch(error){}
+});
+
+window.addEventListener("beforeunload",() => {
+  try{
+    sessionStorage.setItem(SCROLL_KEY,String(window.scrollY));
+  }catch(error){}
+});
+
 </script>
 
 </body>
