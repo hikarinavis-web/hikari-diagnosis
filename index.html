@@ -3,547 +3,328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光回線診断ツール Ver6</title>
-
+<title>光回線診断ツール</title>
 <style>
-:root{
-  --blue:#0878f9;
-  --blue-dark:#005bc4;
-  --green:#06c755;
-  --green-dark:#05a648;
-  --bg:#f4f6f9;
-  --text:#222;
-}
-
-*{box-sizing:border-box;}
-
-body{
-  font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
-  background:var(--bg);
-  margin:0;
-  padding:20px;
-  color:var(--text);
-}
-
-.container{
-  max-width:840px;
-  margin:auto;
-  background:#fff;
-  padding:30px;
-  border-radius:16px;
-  box-shadow:0 0 15px rgba(0,0,0,.1);
-}
-
-h1{
-  text-align:center;
-  margin:0 0 8px;
-}
-
-.lead{
-  text-align:center;
-  color:#555;
-  margin:0 0 25px;
-  line-height:1.7;
-}
-
-label{
-  display:block;
-  margin-top:16px;
-  font-weight:bold;
-}
-
-select,input{
-  width:100%;
-  padding:13px;
-  margin-top:6px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:15px;
-  background:#fff;
-}
-
-.main-button{
-  width:100%;
-  padding:16px;
-  margin-top:25px;
-  background:var(--blue);
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  font-size:17px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.main-button:hover{background:var(--blue-dark);}
-
-.result{
-  display:none;
-  margin-top:30px;
-  background:#f8f9fa;
-  padding:22px;
-  border-radius:12px;
-}
-
-.card{
-  background:#fff;
-  padding:18px;
-  border-radius:13px;
-  margin:16px 0;
-  border-left:6px solid var(--blue);
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-
-.rank{
-  margin:0 0 12px;
-  font-size:22px;
-}
-
-.plan-name{
-  margin:14px 0 6px;
-  font-size:25px;
-}
-
-.card-image{
-  width:100%;
-  display:block;
-  border-radius:10px;
-  margin:0 0 12px;
-}
-
-.line-link{
-  display:block;
-  text-decoration:none;
-}
-
-.line-button{
-  width:100%;
-  padding:14px;
-  margin:0 0 14px;
-  background:var(--green);
-  color:#fff;
-  border:none;
-  border-radius:9px;
-  font-size:17px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.line-button:hover{background:var(--green-dark);}
-
-.price{
-  font-weight:bold;
-  font-size:18px;
-  color:#111;
-  margin:10px 0;
-}
-
-.reason{
-  color:#444;
-  line-height:1.7;
-  margin-bottom:0;
-}
-
-.note{
-  font-size:14px;
-  color:#555;
-  line-height:1.7;
-}
-
-.warning{
-  background:#fff8e1;
-  border-left:5px solid #ffc107;
-  padding:12px;
-  border-radius:8px;
-  margin:12px 0;
-  color:#5f4b00;
-  line-height:1.7;
-}
-
-.small{
-  font-size:13px;
-  color:#666;
-  line-height:1.6;
-}
-
-@media(max-width:600px){
-  body{padding:10px;}
-  .container{padding:18px;}
-  .result{padding:14px;}
-  .card{padding:13px;}
-  .rank{font-size:19px;}
-  .plan-name{font-size:22px;}
-}
+:root{--blue:#0878f9;--blue-dark:#005bc4;--green:#06c755;--green-dark:#05a648;--bg:#f3f6fa;--card:#fff;--text:#202124;--muted:#5f6368;--border:#dfe5ec}
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:var(--bg);color:var(--text);font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+.container{width:min(100%,860px);margin:0 auto;padding:30px;background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+h1{margin:0 0 8px;text-align:center;font-size:30px}
+.lead{margin:0 0 26px;text-align:center;color:var(--muted);line-height:1.7}
+.form-group{margin-top:17px}
+label{display:block;margin-bottom:7px;font-weight:700}
+.required{margin-left:5px;color:#d93025;font-size:12px}
+select{width:100%;padding:14px 12px;border:1px solid #cbd3dc;border-radius:10px;background:#fff;font-size:16px}
+.diagnose-button{width:100%;margin-top:25px;padding:16px;border:0;border-radius:11px;background:var(--blue);color:#fff;font-size:18px;font-weight:700;cursor:pointer}
+.diagnose-button:hover{background:var(--blue-dark)}
+.error{display:none;margin-top:14px;padding:12px;border-radius:9px;background:#fce8e6;color:#b3261e;line-height:1.6}
+.result{display:none;margin-top:30px;padding:24px;border-radius:15px;background:#f8fafc}
+.result-heading{margin:0 0 14px;font-size:23px}
+.recommend-card{padding:20px;border:1px solid var(--border);border-radius:15px;background:var(--card);box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.recommend-label{display:inline-block;margin-bottom:8px;padding:6px 11px;border-radius:999px;background:#e8f1ff;color:#075ec7;font-weight:700}
+.plan-name{margin:4px 0 18px;font-size:28px}
+.condition-box,.reason-box{margin-top:18px}
+.section-title{margin:0 0 10px;font-size:18px}
+.check-list{display:grid;gap:7px;margin:0;padding:0;list-style:none;line-height:1.6}
+.plan-image{width:100%;display:block;margin-top:18px;border-radius:12px}
+.image-placeholder{display:flex;min-height:260px;margin-top:18px;align-items:center;justify-content:center;border-radius:12px;background:radial-gradient(circle at 78% 24%,rgba(61,150,255,.75),transparent 24%),linear-gradient(135deg,#02060d,#062a63 58%,#09111f);color:#fff;text-align:center;font-size:26px;font-weight:700;line-height:1.6}
+.line-button{display:block;width:100%;margin-top:18px;padding:15px;border-radius:10px;background:var(--green);color:#fff;text-align:center;text-decoration:none;font-size:18px;font-weight:700}
+.line-button:hover{background:var(--green-dark)}
+.line-note{margin-top:14px;text-align:center;line-height:1.75}
+.line-note strong{display:block}
+.other-section{margin-top:22px;padding-top:21px;border-top:1px dashed #b7c0ca}
+.other-toggle{width:100%;padding:14px;border:1px solid var(--blue);border-radius:10px;background:#fff;color:var(--blue);font-size:17px;font-weight:700;cursor:pointer}
+.other-subtitle{margin:9px 0 0;text-align:center;color:var(--muted);font-size:14px}
+.candidate-panel{display:none;margin-top:18px}
+.candidate-title{margin:0 0 11px;font-size:18px}
+.candidate-list{display:grid;gap:10px}
+.candidate-button{width:100%;padding:13px 14px;border:1px solid #cad2dc;border-radius:10px;background:#fff;color:#222;text-align:left;font-size:16px;font-weight:700;cursor:pointer}
+.candidate-button:hover{border-color:var(--blue);color:var(--blue);background:#f5f9ff}
+.price-note{margin:16px 0 0;color:var(--muted);font-size:13px;line-height:1.6}
+@media(max-width:640px){body{padding:10px}.container{padding:18px}h1{font-size:25px}.result{padding:14px}.recommend-card{padding:15px}.plan-name{font-size:24px}.image-placeholder{min-height:190px;font-size:22px}}
 </style>
 </head>
-
 <body>
-<div class="container">
-
+<main class="container">
 <h1>光回線診断ツール</h1>
-<p class="lead">
-現在のスマホ会社・利用中回線・利用目的から、案内可能な光回線を診断します。
-</p>
+<p class="lead">5つの項目から、条件に近い光回線をご案内します。</p>
 
-<label for="house">住居タイプ</label>
+<div class="form-group">
+<label for="house">① 住居タイプ<span class="required">必須</span></label>
 <select id="house">
-  <option value="戸建て">戸建て</option>
-  <option value="マンション">マンション</option>
+<option value="">選択してください</option>
+<option value="戸建て">戸建て</option>
+<option value="マンション">マンション</option>
 </select>
-
-<label for="region">お住まい地域</label>
-<select id="region">
-  <option value="東日本">東日本</option>
-  <option value="西日本">西日本</option>
-</select>
-
-<label for="carrier">スマホ会社</label>
-<select id="carrier">
-  <option value="docomo">docomo</option>
-  <option value="au">au</option>
-  <option value="SoftBank">SoftBank</option>
-  <option value="その他格安スマホ">楽天モバイル・格安スマホ・その他</option>
-</select>
-
-<label for="currentLine">現在利用中の回線</label>
-<select id="currentLine">
-  <option value="ドコモ光 1G">ドコモ光 1G</option>
-  <option value="ドコモ光 10G">ドコモ光 10G</option>
-  <option value="ソフトバンク光">ソフトバンク光</option>
-  <option value="au光">au光</option>
-  <option value="NURO光">NURO光</option>
-  <option value="ソネット光">ソネット光</option>
-  <option value="ニフティ光">ニフティ光</option>
-  <option value="ビッグローブ光">ビッグローブ光</option>
-  <option value="ホームルーター">ホームルーター</option>
-  <option value="その他・わからない">その他・わからない</option>
-</select>
-
-<label for="fee">現在の月額料金</label>
-<select id="fee">
-  <option value="4000円未満">4,000円未満</option>
-  <option value="4000～5000円">4,000～5,000円</option>
-  <option value="5000～6000円">5,000～6,000円</option>
-  <option value="6000円以上">6,000円以上</option>
-  <option value="わからない">わからない</option>
-</select>
-
-<label for="usage">利用目的</label>
-<select id="usage">
-  <option value="普通に使う">普通に使う</option>
-  <option value="動画視聴・SNS">動画視聴・SNS</option>
-  <option value="在宅ワーク">在宅ワーク</option>
-  <option value="オンラインゲーム">オンラインゲーム</option>
-  <option value="高画質動画・大容量通信">高画質動画・大容量通信</option>
-</select>
-
-<label for="problem">一番の悩み</label>
-<select id="problem">
-  <option value="料金">料金</option>
-  <option value="速度">速度</option>
-</select>
-
-<label for="zipcode">郵便番号</label>
-<input type="text" id="zipcode" inputmode="numeric" placeholder="123-4567">
-
-<button class="main-button" type="button" onclick="diagnose()">診断する</button>
-
-<div id="result" class="result" aria-live="polite"></div>
-
 </div>
 
+<div class="form-group">
+<label for="region">② お住まい地域<span class="required">必須</span></label>
+<select id="region">
+<option value="">選択してください</option>
+<option value="北海道">北海道</option>
+<option value="東日本">東日本</option>
+<option value="西日本">西日本</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="carrier">③ スマホ会社<span class="required">必須</span></label>
+<select id="carrier">
+<option value="">選択してください</option>
+<option value="docomo">docomo</option>
+<option value="au">au</option>
+<option value="SoftBank">SoftBank</option>
+<option value="その他格安スマホ">楽天モバイル・格安スマホ・その他</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="currentLine">④ 現在利用中の回線<span class="required">必須</span></label>
+<select id="currentLine">
+<option value="">選択してください</option>
+<option value="ドコモ光 1G">ドコモ光 1G</option>
+<option value="ドコモ光 10G">ドコモ光 10G</option>
+<option value="ソフトバンク光">ソフトバンク光</option>
+<option value="au光">au光</option>
+<option value="NURO光">NURO光</option>
+<option value="ソネット光">ソネット光</option>
+<option value="ニフティ光">ニフティ光</option>
+<option value="ビッグローブ光">ビッグローブ光</option>
+<option value="ホームルーター">ホームルーター</option>
+<option value="その他・わからない">その他・わからない</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="problem">⑤ 一番の悩み<span class="required">必須</span></label>
+<select id="problem">
+<option value="">選択してください</option>
+<option value="料金">料金</option>
+<option value="速度">速度</option>
+<option value="工事">工事</option>
+<option value="引っ越し">引っ越し</option>
+<option value="新規契約">新規契約</option>
+</select>
+</div>
+
+<button class="diagnose-button" type="button" onclick="diagnose()">診断する</button>
+<div id="error" class="error"></div>
+
+<section id="result" class="result" aria-live="polite">
+<h2 class="result-heading">診断結果</h2>
+<article class="recommend-card">
+<div class="recommend-label">あなたにおすすめ</div>
+<h2 id="planName" class="plan-name"></h2>
+
+<div class="condition-box">
+<h3 class="section-title">診断条件</h3>
+<ul id="conditionList" class="check-list"></ul>
+</div>
+
+<div id="imageArea"></div>
+
+<div class="reason-box">
+<h3 class="section-title">おすすめ理由</h3>
+<ul id="reasonList" class="check-list"></ul>
+</div>
+
+<a id="lineButton" class="line-button" href="https://lin.ee/OY5RfF4" target="_blank" rel="noopener noreferrer">
+🟩 LINEで無料診断・相談
+</a>
+
+<div class="line-note">
+<strong>相談無料</strong>
+ご相談後にご検討いただけます<br>
+✓ 現在の料金と比較できます<br>
+✓ 提供エリアを確認できます
+</div>
+
+<p id="priceNote" class="price-note"></p>
+
+<div class="other-section">
+<button id="otherToggle" class="other-toggle" type="button" onclick="toggleCandidates()">他のおすすめを見る</button>
+<p class="other-subtitle">あなたに合う回線も比較できます</p>
+<div id="candidatePanel" class="candidate-panel">
+<h3 class="candidate-title">他の診断候補</h3>
+<div id="candidateList" class="candidate-list"></div>
+</div>
+</div>
+</article>
+</section>
+</main>
+
 <script>
-const LINE_URL = "https://lin.ee/OY5RfF4";
+const LINE_URL="https://lin.ee/OY5RfF4";
 
-/*
-  表示料金は、提供された料金情報・画像を基準にしています。
-  キャンペーン、契約期間、地域、建物、プロバイダ等により変動する場合があります。
-*/
-function price(name, house){
-  const prices = {
-    "ドコモ光 1G": house === "マンション" ? "月額4,400円（税込）〜" : "月額5,720円（税込）〜",
-    "ドコモ光 10G": "月額6,380円（税込）",
+const plans={
+docomo1g:{name:"ドコモ光 1G",image:"ドコモ光.png",price:house=>house==="マンション"?"マンション 月額4,400円（税込）〜":"戸建て 月額5,720円（税込）〜",reasons:["ドコモセット割対応","IPv6高速通信対応","dポイントが貯まる"]},
+docomo10g:{name:"ドコモ光 10G",image:"",price:()=> "月額6,380円（税込）",reasons:["最大10Gbps対応","ドコモセット割対応","大容量通信におすすめ"]},
+softbank1g:{name:"ソフトバンク光 1G",image:"ソフトバンク光.png",price:house=>house==="マンション"?"マンション 月額4,180円（税込）〜":"戸建て 月額5,720円（税込）〜",reasons:["SoftBankセット割対応","IPv6高速通信対応","違約金還元制度あり"]},
+softbank10g:{name:"ソフトバンク光 10G",image:"",price:()=> "月額6,270円（税込）",reasons:["最大10Gbps対応","SoftBankセット割対応","ゲーム利用におすすめ"]},
+nifty1g:{name:"ニフティ光 1G",image:"ニフティ光.png",price:house=>house==="マンション"?"マンション 月額4,378円（税込）〜":"戸建て 月額5,720円（税込）〜",reasons:["au・UQセット割対応","IPv6高速通信対応","月額料金を抑えやすい"]},
+nifty10g:{name:"ニフティ光 10G",image:"",price:()=> "月額6,380円（税込）",reasons:["最大10Gbps対応","au・UQセット割対応","大容量通信におすすめ"]},
+biglobe:{name:"ビッグローブ光",image:"ビッグローブ光.png",price:house=>house==="マンション"?"マンション 月額4,378円（税込）〜":"戸建て 月額5,478円（税込）〜",reasons:["au・UQセット割対応","IPv6高速通信対応","工事費負担を抑えやすい"]},
+au:{name:"auひかり",image:"au光.png",price:house=>house==="マンション"?"マンション 月額4,180円（税込）〜":"戸建て 月額5,610円（税込）〜",reasons:["au・UQセット割対応","独自回線で混雑に強い","高速通信に対応"]},
+nuro2g:{name:"NURO光 2G",image:"ニューロ光.png",price:()=> "月額5,500円（税込）",reasons:["高速通信に対応","SoftBank割対応","工事回数を抑えるプラン"]},
+nuro10g:{name:"NURO光 10G",image:"ニューロ光.png",price:()=> "月額6,050円（税込）",reasons:["最大10Gbps対応","ゲーム利用におすすめ","大容量通信に強い"]}
+};
 
-    "ソフトバンク光 1G": house === "マンション" ? "月額4,180円（税込）〜" : "月額5,720円（税込）〜",
-    "ソフトバンク光 10G": "月額6,270円（税込）",
+let diagnosisPlans=[];
+let selectedPlanIndex=0;
+let diagnosisConditions=[];
 
-    "ニフティ光 1G": house === "マンション" ? "月額4,378円（税込）〜" : "月額5,720円（税込）〜",
-    "ニフティ光 10G": "月額6,380円（税込）",
-
-    "ビッグローブ光": house === "マンション" ? "月額4,378円（税込）〜" : "月額5,478円（税込）〜",
-
-    "au光": house === "マンション" ? "月額4,180円（税込）〜" : "月額5,610円（税込）〜",
-
-    "NURO光 2G": "月額5,500円（税込）",
-    "NURO光 10G": "月額6,050円（税込）"
-  };
-
-  return prices[name] || "料金はLINEで確認";
+function getNormalPlans(carrier,currentLine,house){
+if(carrier==="au"){
+if(house==="戸建て"){
+if(currentLine==="au光")return["nifty1g","biglobe","nuro2g"];
+if(currentLine==="ソネット光")return["nifty1g","biglobe","au"];
+if(currentLine==="ニフティ光")return["au","biglobe","nuro2g"];
+if(currentLine==="ビッグローブ光")return["nifty1g","au","nuro2g"];
+return["nifty1g","biglobe","au"];
+}
+return["nifty1g","biglobe","docomo1g"];
 }
 
-/*
-  現時点では1G・10Gとも同じブランド画像を使用します。
-  10G専用画像が完成したら、ここだけ画像ファイル名を変更すれば差し替えできます。
-*/
-function getImage(name){
-  // 10G専用画像が未完成の回線は、料金相違を避けるため画像を表示しない
-  if(name === "ドコモ光 10G") return "";
-  if(name === "ソフトバンク光 10G") return "";
-  if(name === "ニフティ光 10G") return "";
-
-  // NURO画像には2G・10G両方の料金が掲載されているため共通利用
-  if(name.includes("NURO")) return "ニューロ光.png";
-  if(name.includes("ビッグローブ")) return "ビッグローブ光.png";
-  if(name.includes("ドコモ")) return "ドコモ光.png";
-  if(name.includes("ソフトバンク")) return "ソフトバンク光.png";
-  if(name.includes("au光")) return "au光.png";
-  if(name.includes("ニフティ")) return "ニフティ光.png";
-  return "";
+if(carrier==="docomo"){
+if(currentLine==="ドコモ光 10G")return["nuro2g","nuro10g"];
+if(currentLine==="ドコモ光 1G")return["docomo10g","nuro2g","nuro10g"];
+return["docomo1g","docomo10g","nuro2g"];
 }
 
-function addPlan(list, name, reason, house){
-  // ソネット光は現在利用中回線としては残すが、提案先には表示しない
-  if(name.includes("ソネット光")) return;
-
-  if(!list.some(plan => plan.name === name)){
-    list.push({
-      name,
-      reason,
-      price:price(name, house),
-      image:getImage(name)
-    });
-  }
+if(carrier==="SoftBank"){
+if(currentLine==="ソフトバンク光")return["nuro2g","nuro10g"];
+if(currentLine==="NURO光")return["softbank1g","softbank10g"];
+return["softbank1g","nuro2g","nuro10g"];
 }
 
-function addSpeedPlans(plans, carrier, currentLine, house){
-  if(carrier === "docomo"){
-    if(currentLine === "ドコモ光 10G"){
-      addPlan(plans, "NURO光 10G", "現在10G利用中のため、別の10G回線候補です。", house);
-      addPlan(plans, "ニフティ光 10G", "料金と速度の両方を比較できる10G候補です。", house);
-      addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの10G候補です。", house);
-    }else{
-      addPlan(plans, "ドコモ光 10G", "ドコモスマホ利用者向けの10G候補です。", house);
-      addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
-      addPlan(plans, "ニフティ光 10G", "高速通信を希望する方向けの10G候補です。", house);
-    }
-  }
-  else if(carrier === "SoftBank"){
-    addPlan(plans, "ソフトバンク光 10G", "SoftBankスマホ利用者向けの10G候補です。", house);
-    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
-    addPlan(plans, "ニフティ光 10G", "高速通信を希望する方向けの10G候補です。", house);
-  }
-  else if(carrier === "au"){
-    addPlan(plans, "ニフティ光 10G", "auスマホ利用者に案内しやすい10G候補です。", house);
-    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
-    addPlan(plans, "ドコモ光 10G", "比較対象として案内可能な10G候補です。", house);
-  }
-  else{
-    addPlan(plans, "ニフティ光 10G", "格安スマホ利用者向けの10G候補です。", house);
-    addPlan(plans, "NURO光 10G", "ゲーム・大容量通信向けの10G候補です。", house);
-    addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの10G候補です。", house);
-  }
+return["nifty1g","biglobe","nuro2g"];
 }
 
-function addAuNormalPlans(plans, house, currentLine){
-  if(house === "戸建て"){
-    if(currentLine === "au光"){
-      addPlan(plans, "ニフティ光 1G", "au光利用中の乗り換え候補です。", house);
-      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
-      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
-    }
-    else if(currentLine === "ソネット光"){
-      addPlan(plans, "ニフティ光 1G", "ソネット光利用中の乗り換え候補です。", house);
-      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
-      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
-    }
-    else if(currentLine === "ニフティ光"){
-      addPlan(plans, "au光", "ニフティ光利用中の乗り換え候補です。", house);
-      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
-      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
-    }
-    else if(currentLine === "ビッグローブ光"){
-      addPlan(plans, "ニフティ光 1G", "ビッグローブ光利用中の乗り換え候補です。", house);
-      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
-      addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
-    }
-    else{
-      addPlan(plans, "ニフティ光 1G", "auスマホ利用者に案内しやすい候補です。", house);
-      addPlan(plans, "ビッグローブ光", "auスマホ利用者に案内しやすい候補です。", house);
-      addPlan(plans, "au光", "auスマホとの組み合わせを検討できる候補です。", house);
-    }
-  }else{
-    addPlan(plans, "ニフティ光 1G", "マンション向けの料金で案内しやすい候補です。", house);
-    addPlan(plans, "ビッグローブ光", "マンション向けの候補です。", house);
-    addPlan(plans, "ドコモ光 1G", "建物状況を確認しながら案内できる候補です。", house);
-  }
+function getSpeedPlans(carrier,currentLine){
+if(carrier==="docomo"){
+if(currentLine==="ドコモ光 10G")return["nuro10g","nifty10g","softbank10g"];
+return["docomo10g","nuro10g","nifty10g"];
+}
+if(carrier==="SoftBank")return["softbank10g","nuro10g","nifty10g"];
+if(carrier==="au")return["nifty10g","nuro10g","docomo10g"];
+return["nifty10g","nuro10g","softbank10g"];
 }
 
-function addDocomoNormalPlans(plans, house, currentLine){
-  if(currentLine === "ドコモ光 10G"){
-    addPlan(plans, "NURO光 2G", "ドコモ光10G利用中の乗り換え候補です。", house);
-    addPlan(plans, "NURO光 10G", "現在と同じ10Gクラスで比較できる候補です。", house);
-    return;
-  }
-
-  if(currentLine === "ドコモ光 1G"){
-    addPlan(plans, "ドコモ光 10G", "現在のドコモ光1Gから10Gへの変更候補です。", house);
-    addPlan(plans, "NURO光 2G", "別回線の速度重視候補です。", house);
-    addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
-    return;
-  }
-
-  addPlan(plans, "ドコモ光 1G", "ドコモスマホ利用者向けの基本候補です。", house);
-  addPlan(plans, "ドコモ光 10G", "高速通信を希望する方向けの候補です。", house);
-  addPlan(plans, "NURO光 2G", "別回線の速度重視候補です。", house);
+function getCarrierCondition(carrier){
+if(carrier==="docomo")return"docomoスマホ利用";
+if(carrier==="au")return"auスマホ利用";
+if(carrier==="SoftBank")return"SoftBankスマホ利用";
+return"格安スマホ・その他";
 }
 
-function addSoftBankNormalPlans(plans, house, currentLine){
-  if(currentLine === "ソフトバンク光"){
-    addPlan(plans, "NURO光 2G", "ソフトバンク光利用中の乗り換え候補です。", house);
-    addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
-    return;
-  }
+function validateForm(){
+const ids=["house","region","carrier","currentLine","problem"];
+const missing=ids.some(id=>!document.getElementById(id).value);
+const error=document.getElementById("error");
 
-  if(currentLine === "NURO光"){
-    addPlan(plans, "ソフトバンク光 1G", "NURO光利用中の乗り換え候補です。", house);
-    addPlan(plans, "ソフトバンク光 10G", "高速通信を希望する方向けの候補です。", house);
-    return;
-  }
-
-  addPlan(plans, "ソフトバンク光 1G", "SoftBankスマホ利用者向けの基本候補です。", house);
-  addPlan(plans, "NURO光 2G", "速度重視の別候補です。", house);
-  addPlan(plans, "NURO光 10G", "高速通信を希望する方向けの候補です。", house);
+if(missing){
+error.textContent="必須項目をすべて選択してください。";
+error.style.display="block";
+return false;
 }
 
-function addOtherCarrierPlans(plans, house){
-  addPlan(plans, "ニフティ光 1G", "格安スマホ・その他スマホ利用者に案内しやすい候補です。", house);
-  addPlan(plans, "ビッグローブ光", "格安スマホ利用者向けの比較候補です。", house);
-  addPlan(plans, "NURO光 2G", "速度も重視したい方向けの候補です。", house);
+error.style.display="none";
+return true;
 }
 
 function diagnose(){
-  const house = document.getElementById("house").value;
-  const region = document.getElementById("region").value;
-  const carrier = document.getElementById("carrier").value;
-  const currentLine = document.getElementById("currentLine").value;
-  const fee = document.getElementById("fee").value;
-  const usage = document.getElementById("usage").value;
-  const problem = document.getElementById("problem").value;
-  const zipcode = document.getElementById("zipcode").value.trim();
+if(!validateForm())return;
 
-  const highSpeedUsage =
-    usage === "オンラインゲーム" ||
-    usage === "高画質動画・大容量通信";
+const house=document.getElementById("house").value;
+const region=document.getElementById("region").value;
+const carrier=document.getElementById("carrier").value;
+const currentLine=document.getElementById("currentLine").value;
+const problem=document.getElementById("problem").value;
 
-  const speedMode =
-    problem === "速度" ||
-    highSpeedUsage;
+diagnosisPlans=problem==="速度"
+?getSpeedPlans(carrier,currentLine)
+:getNormalPlans(carrier,currentLine,house);
 
-  let plans = [];
-  let ruleTitle = "";
-  let caution = "";
+diagnosisConditions=[
+getCarrierCondition(carrier),
+house,
+region,
+`現在：${currentLine}`,
+`お悩み：${problem}`
+];
 
-  if(speedMode){
-    ruleTitle = "速度重視・10Gおすすめ";
-    addSpeedPlans(plans, carrier, currentLine, house);
+selectedPlanIndex=0;
+renderSelectedPlan();
+renderCandidateButtons();
 
-    caution =
-      "10G回線は戸建て・マンションとも住所や建物設備により提供可否が異なります。LINEで正確なエリア確認を行います。";
-  }
-  else{
-    if(carrier === "au"){
-      ruleTitle = "auスマホ利用中の方向け";
-      addAuNormalPlans(plans, house, currentLine);
-    }
-    else if(carrier === "docomo"){
-      ruleTitle = "ドコモスマホ利用中の方向け";
-      addDocomoNormalPlans(plans, house, currentLine);
-    }
-    else if(carrier === "SoftBank"){
-      ruleTitle = "SoftBankスマホ利用中の方向け";
-      addSoftBankNormalPlans(plans, house, currentLine);
-    }
-    else{
-      ruleTitle = "楽天モバイル・格安スマホ・その他の方向け";
-      addOtherCarrierPlans(plans, house);
-    }
+document.getElementById("candidatePanel").style.display="none";
+document.getElementById("otherToggle").textContent="他のおすすめを見る";
 
-    if(house === "マンション" && plans.some(plan => plan.name.includes("NURO") || plan.name.includes("au光"))){
-      caution =
-        "マンションではNURO光・au光が建物設備により利用できない場合があります。LINEで住所確認後、提供可能な回線をご案内します。";
-    }
-  }
+const result=document.getElementById("result");
+result.style.display="block";
+result.scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-  const topPlans = plans.slice(0,3);
+function renderSelectedPlan(){
+const planKey=diagnosisPlans[selectedPlanIndex];
+const plan=plans[planKey];
+const house=document.getElementById("house").value;
 
-  let html = `
-    <h2>診断結果</h2>
-    <p class="note">${ruleTitle}</p>
-  `;
+document.getElementById("planName").textContent=plan.name;
+document.getElementById("conditionList").innerHTML=
+diagnosisConditions.map(item=>`<li>✔ ${item}</li>`).join("");
 
-  if(caution){
-    html += `<div class="warning">${caution}</div>`;
-  }
+const imageArea=document.getElementById("imageArea");
+if(plan.image){
+imageArea.innerHTML=`<img class="plan-image" src="${plan.image}" alt="${plan.name}の回線画像">`;
+}else{
+imageArea.innerHTML=`<div class="image-placeholder">${plan.name}<br>10G専用画像 準備中</div>`;
+}
 
-  html += `
-    <p class="small">
-      郵便番号：${zipcode || "未入力"} /
-      住居タイプ：${house} /
-      地域：${region} /
-      現在回線：${currentLine} /
-      現在料金：${fee}
-    </p>
-  `;
+document.getElementById("reasonList").innerHTML=
+plan.reasons.slice(0,3).map(reason=>`<li>✓ ${reason}</li>`).join("");
 
-  topPlans.forEach((plan, index) => {
-    const rank =
-      index === 0 ? "🥇 第1位" :
-      index === 1 ? "🥈 第2位" :
-      "🥉 第3位";
+document.getElementById("lineButton").href=LINE_URL;
+document.getElementById("priceNote").textContent=
+`${plan.price(house)}　※提供条件やキャンペーンにより異なる場合があります。`;
+}
 
-    html += `
-      <section class="card">
-        <h3 class="rank">${rank}</h3>
-        <h2 class="plan-name">${plan.name}</h2>
+function renderCandidateButtons(){
+const list=document.getElementById("candidateList");
+list.innerHTML="";
 
-        ${plan.image ? `
-          <img
-            class="card-image"
-            src="${plan.image}"
-            alt="${plan.name}の案内画像"
-          >
-        ` : ""}
+diagnosisPlans.forEach((planKey,index)=>{
+if(index===selectedPlanIndex)return;
+const plan=plans[planKey];
+const button=document.createElement("button");
+button.type="button";
+button.className="candidate-button";
+button.textContent=`○ ${plan.name}`;
+button.onclick=()=>selectCandidate(index);
+list.appendChild(button);
+});
 
-        <a
-          class="line-link"
-          href="${LINE_URL}"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="${plan.name}についてLINEで無料相談"
-        >
-          <button class="line-button" type="button">
-            LINEで無料相談
-          </button>
-        </a>
+if(list.children.length===0){
+list.innerHTML=`<p class="note">現在、他の診断候補はありません。</p>`;
+}
+}
 
-        <p class="price">${plan.price}</p>
-        <p class="reason">${plan.reason}</p>
-      </section>
-    `;
-  });
+function selectCandidate(index){
+selectedPlanIndex=index;
+renderSelectedPlan();
+renderCandidateButtons();
+document.querySelector(".recommend-card").scrollIntoView({behavior:"smooth",block:"start"});
+}
 
-  html += `
-    <p class="note">
-      ※表示料金は税込の月額料金です。キャンペーン、契約内容、地域、建物設備などにより異なる場合があります。
-    </p>
-  `;
+function toggleCandidates(){
+const panel=document.getElementById("candidatePanel");
+const button=document.getElementById("otherToggle");
+const opening=panel.style.display!=="block";
 
-  const result = document.getElementById("result");
-  result.innerHTML = html;
-  result.style.display = "block";
-  result.scrollIntoView({behavior:"smooth", block:"start"});
+panel.style.display=opening?"block":"none";
+button.textContent=opening?"他のおすすめを閉じる":"他のおすすめを見る";
 }
 </script>
-
 </body>
 </html>
