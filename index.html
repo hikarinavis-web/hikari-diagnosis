@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>光回線診断ツール</title>
+<title>光回線診断ツール｜入力条件に近い光回線候補を確認</title>
+<meta name="description" content="住居・都道府県・スマホ会社・現在回線・お悩みから、入力条件に近い光回線候補を確認できる無料診断ツールです。">
+<meta property="og:title" content="光回線診断ツール">
+<meta property="og:description" content="約30秒で、入力条件に近い光回線候補を確認できます。LINE相談は全国対応・無料です。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 
 <style>
 :root{
@@ -668,6 +673,69 @@ select,
   }
 }
 
+.relation-badge{
+  display:inline-block;
+  min-height:32px;
+  margin:-4px 0 4px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#fff4df;
+  color:#8a5700;
+  font-size:13px;
+  font-weight:700;
+}
+
+.availability-note{
+  display:none;
+  margin:12px auto 0;
+  width:91%;
+  padding:11px 12px;
+  border-radius:10px;
+  background:#fff8e1;
+  border:1px solid #f2d581;
+  color:#644b00;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.condition-details{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+
+.condition-detail{
+  padding:10px 11px;
+  border-radius:9px;
+  background:#fff;
+  border:1px solid #e2e7ed;
+  font-size:13px;
+  line-height:1.65;
+}
+
+.condition-detail strong{display:block;margin-bottom:2px;color:#333;}
+
+.change-notice{
+  display:none;
+  margin:4px 0 10px;
+  padding:9px 11px;
+  border-radius:9px;
+  background:#eef8ff;
+  color:#075ec7;
+  font-size:13px;
+  font-weight:700;
+}
+
+.current-line-note{
+  color:var(--muted);
+  font-size:13px;
+}
+
+@media(max-width:640px){
+  .condition-detail{font-size:14px;}
+  .availability-note{font-size:14px;}
+}
+
 </style>
 </head>
 
@@ -679,7 +747,7 @@ select,
 
 <div class="form-group">
   <label for="house">① 住居タイプ<span class="required">必須</span></label>
-  <select id="house" data-label="住居タイプ">
+  <select id="house" data-label="住居タイプ" required aria-describedby="error">
     <option value="">選択してください</option>
     <option value="戸建て">戸建て</option>
     <option value="マンション">マンション</option>
@@ -687,46 +755,101 @@ select,
 </div>
 
 <div class="form-group">
-  <label for="region">② お住まい地域<span class="required">必須</span></label>
-  <select id="region" data-label="お住まいの地域">
+  <label for="region">② お住まいの都道府県<span class="required">必須</span></label>
+  <select id="region" data-label="お住まいの都道府県" required aria-describedby="error">
     <option value="">選択してください</option>
     <option value="北海道">北海道</option>
-    <option value="東日本">東日本</option>
-    <option value="西日本">西日本</option>
+    <option value="青森県">青森県</option>
+    <option value="岩手県">岩手県</option>
+    <option value="宮城県">宮城県</option>
+    <option value="秋田県">秋田県</option>
+    <option value="山形県">山形県</option>
+    <option value="福島県">福島県</option>
+    <option value="茨城県">茨城県</option>
+    <option value="栃木県">栃木県</option>
+    <option value="群馬県">群馬県</option>
+    <option value="埼玉県">埼玉県</option>
+    <option value="千葉県">千葉県</option>
+    <option value="東京都">東京都</option>
+    <option value="神奈川県">神奈川県</option>
+    <option value="新潟県">新潟県</option>
+    <option value="富山県">富山県</option>
+    <option value="石川県">石川県</option>
+    <option value="福井県">福井県</option>
+    <option value="山梨県">山梨県</option>
+    <option value="長野県">長野県</option>
+    <option value="岐阜県">岐阜県</option>
+    <option value="静岡県">静岡県</option>
+    <option value="愛知県">愛知県</option>
+    <option value="三重県">三重県</option>
+    <option value="滋賀県">滋賀県</option>
+    <option value="京都府">京都府</option>
+    <option value="大阪府">大阪府</option>
+    <option value="兵庫県">兵庫県</option>
+    <option value="奈良県">奈良県</option>
+    <option value="和歌山県">和歌山県</option>
+    <option value="鳥取県">鳥取県</option>
+    <option value="島根県">島根県</option>
+    <option value="岡山県">岡山県</option>
+    <option value="広島県">広島県</option>
+    <option value="山口県">山口県</option>
+    <option value="徳島県">徳島県</option>
+    <option value="香川県">香川県</option>
+    <option value="愛媛県">愛媛県</option>
+    <option value="高知県">高知県</option>
+    <option value="福岡県">福岡県</option>
+    <option value="佐賀県">佐賀県</option>
+    <option value="長崎県">長崎県</option>
+    <option value="熊本県">熊本県</option>
+    <option value="大分県">大分県</option>
+    <option value="宮崎県">宮崎県</option>
+    <option value="鹿児島県">鹿児島県</option>
+    <option value="沖縄県">沖縄県</option>
   </select>
 </div>
 
 <div class="form-group">
   <label for="carrier">③ スマホ会社<span class="required">必須</span></label>
-  <select id="carrier" data-label="携帯会社">
+  <select id="carrier" data-label="携帯会社" required aria-describedby="error">
     <option value="">選択してください</option>
     <option value="docomo">docomo</option>
+    <option value="ahamo">ahamo</option>
     <option value="au">au</option>
+    <option value="UQ mobile">UQ mobile</option>
+    <option value="povo">povo</option>
     <option value="SoftBank">SoftBank</option>
-    <option value="その他格安スマホ">楽天モバイル・格安スマホ・その他</option>
+    <option value="Y!mobile">Y!mobile</option>
+    <option value="楽天モバイル">楽天モバイル</option>
+    <option value="その他格安スマホ">その他の格安スマホ</option>
   </select>
 </div>
 
 <div class="form-group">
   <label for="currentLine">④ 現在利用中の回線<span class="required">必須</span></label>
-  <select id="currentLine" data-label="現在利用中の回線">
+  <select id="currentLine" data-label="現在利用中の回線" required aria-describedby="error">
     <option value="">選択してください</option>
-    <option value="ドコモ光 1G">ドコモ光 1G</option>
-    <option value="ドコモ光 10G">ドコモ光 10G</option>
-    <option value="ソフトバンク光">ソフトバンク光</option>
-    <option value="au光">au光</option>
-    <option value="NURO光">NURO光</option>
-    <option value="ソネット光">ソネット光</option>
-    <option value="ニフティ光">ニフティ光</option>
-    <option value="ビッグローブ光">ビッグローブ光</option>
-    <option value="ホームルーター">ホームルーター</option>
-    <option value="その他・わからない">その他・わからない</option>
+    <option value="docomo1g">ドコモ光 1G</option>
+    <option value="docomo10g">ドコモ光 10G</option>
+    <option value="softbank1g">SoftBank 光 1G</option>
+    <option value="softbank10g">SoftBank 光 10G</option>
+    <option value="au1g">auひかり</option>
+    <option value="nuro2g">NURO 光 2ギガ</option>
+    <option value="nuro10g">NURO 光 10ギガ</option>
+    <option value="sonet1g">So-net 光 1G</option>
+    <option value="nifty1g">@nifty光 1G</option>
+    <option value="nifty10g">@nifty光 10ギガ</option>
+    <option value="biglobe1g">BIGLOBE光 1ギガ</option>
+    <option value="biglobe10g">BIGLOBE光 10ギガ</option>
+    <option value="home5g">home 5G</option>
+    <option value="softbankair">SoftBank Air</option>
+    <option value="wimax">WiMAX</option>
+    <option value="other">その他・わからない</option>
   </select>
 </div>
 
 <div class="form-group">
   <label for="problem">⑤ 一番の悩み<span class="required">必須</span></label>
-  <select id="problem" data-label="一番の悩み">
+  <select id="problem" data-label="一番の悩み" required aria-describedby="error">
     <option value="">選択してください</option>
     <option value="料金">料金</option>
     <option value="速度">速度</option>
@@ -738,7 +861,7 @@ select,
 
 <div class="start-info">
   <strong>📱 約30秒で診断できます</strong>
-  ✔ 全国対応・相談無料
+  ✔ LINE相談は全国対応・無料です<br><span class="card-note">回線の提供地域は商品・住所により異なります。</span>
 </div>
 
 <button id="diagnoseButton" class="diagnose-button" type="button" onclick="startDiagnosis()">
@@ -749,7 +872,7 @@ select,
 <section id="loading" class="loading" aria-live="polite">
   <div class="spinner" aria-hidden="true"></div>
   <p class="loading-title">診断中…</p>
-  <p class="loading-text">あなたに最適な光回線を診断しています。</p>
+  <p class="loading-text">入力条件に近い光回線候補を確認しています。</p>
 </section>
 
 <section id="result" class="result" aria-live="polite">
@@ -759,12 +882,15 @@ select,
     <div class="complete-box">
       <p class="complete-title">✅ 診断完了！</p>
       <p class="complete-text">
-        あなたが入力した条件をもとに診断した結果、<br>
-        「<strong id="completionPlanName"></strong>」をおすすめします。
+        入力条件に近い光回線候補として、<br>
+        「<strong id="completionPlanName"></strong>」をご案内します。<br>
+        <span class="card-note">提供可否と適用条件は確認が必要です。</span>
       </p>
     </div>
 
     <h2 id="planName" class="plan-name"></h2>
+    <div id="relationBadge" class="relation-badge"></div>
+    <div id="changeNotice" class="change-notice" role="status" aria-live="polite"></div>
 
     <div class="info-card blue">
       <h3 class="section-title">診断条件</h3>
@@ -772,7 +898,13 @@ select,
       <p class="card-note">この条件をもとにご案内しています。</p>
     </div>
 
+    <div class="info-card">
+      <h3 class="section-title">今回の比較ポイント</h3>
+      <ul id="problemPointList" class="check-list"></ul>
+    </div>
+
     <div id="imageArea"></div>
+    <div id="availabilityNote" class="availability-note"></div>
 
     <p class="line-early-note">
       料金・工事費・提供エリアなどを無料で確認できます。
@@ -800,6 +932,7 @@ select,
       <h3 class="section-title">おすすめ理由</h3>
       <ul id="reasonList" class="check-list"></ul>
       <p id="priceNote" class="price-note"></p>
+      <div id="conditionDetails" class="condition-details"></div>
     </div>
 
     <p class="consult-intro">
@@ -811,7 +944,7 @@ select,
       <ul class="check-list">
         <li>✓ 現在のご利用状況と比較できます</li>
         <li>✓ 提供エリアを確認できます</li>
-        <li>✓ 工事費実質0円の仕組みをご説明します</li>
+        <li>✓ 工事費の分割請求・割引・残債条件をご説明します</li>
         <li>✓ キャンペーン適用条件を確認できます</li>
         <li>✓ あなたに合う回線をご案内します</li>
       </ul>
@@ -821,7 +954,7 @@ select,
       <h3 class="trust-title">相談無料</h3>
 
       <div class="trust-badges">
-        <span class="trust-badge">全国対応</span>
+        <span class="trust-badge">LINE相談は全国対応</span>
         <span class="trust-badge">相談無料</span>
         <span class="trust-badge">無理な勧誘はありません</span>
       </div>
@@ -876,12 +1009,12 @@ select,
     </div>
 
     <button class="reset-button" type="button" onclick="restartDiagnosis()">
-      診断をやり直す
+      条件を変更する
     </button>
 
     <p class="footer-note">
-      ※診断結果は入力いただいた内容をもとにご案内しています。提供エリア・料金・キャンペーン内容は変更となる場合があります。<br>
-      ※掲載内容は一般的なご案内です。料金・キャンペーン・提供エリア・適用条件は、ご契約時期・提供エリア・回線会社・契約内容により異なる場合があります。
+      ※診断結果は入力内容と都道府県単位の提供情報をもとにした候補です。住所・建物設備による最終確認が必要です。<br>
+      ※掲載内容は一般的なご案内です。料金・キャンペーン・提供エリア・適用条件は、ご契約時期・住所・回線会社・契約内容により異なる場合があります。情報基準日：2026年7月3日。
     </p>
   </article>
 </section>
@@ -890,537 +1023,483 @@ select,
 
 <script>
 const LINE_URL = "https://lin.ee/OY5RfF4";
-const STORAGE_KEY = "hikariDiagnosisFormV1";
+const STORAGE_KEY = "hikariDiagnosisFormV2";
+const RESULT_KEY = "hikariDiagnosisResultV2";
 const SCROLL_KEY = "hikariDiagnosisScrollY";
+const INFO_BASE_DATE = "2026-07-03";
+
+const NURO_2G_PREFECTURES = new Set([
+  "北海道","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+  "岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県",
+  "岡山県","広島県","福岡県","佐賀県"
+]);
+
+const NURO_10G_PREFECTURES = new Set([
+  "北海道","宮城県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+  "岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県",
+  "岡山県","広島県","福岡県","佐賀県"
+]);
+
+function isNuroRevisedPriceDate(){
+  return Date.now() >= new Date("2026-09-01T00:00:00+09:00").getTime();
+}
+
+const problemProfiles = {
+  "料金":["月額料金と契約期間","スマホ割の必須条件","工事費残債・解約費"],
+  "工事":["工事回数と建物設備","分割工事費と同額割引","途中解約時の残債"],
+  "引っ越し":["転居先の提供可否","開通までの時期","移転・解約に伴う費用"],
+  "新規契約":["初期費用と契約期間","キャンペーン適用条件","開通時期と提供エリア"],
+  "速度":["10ギガの提供可否","10ギガ対応機器の準備","用途と実測環境"]
+};
 
 const plans = {
   docomo1g:{
-    name:"ドコモ光 1G",
-    image:"ドコモ光.png",
-    price:house => house === "マンション"
-      ? "マンション 月額4,400円（税込）〜"
-      : "戸建て 月額5,720円（税込）〜",
-    suitable:[
-      "ドコモスマホをご利用中",
-      "月額料金を比較したい",
-      "安定した通信を希望",
-      "ポイントも活用したい"
-    ],
-    reasons:[
-      "ドコモセット割対応",
-      "dポイントが貯まる",
-      "IPv6高速通信対応"
-    ]
+    brand:"docomo",speed:"1G",name:"ドコモ光 1ギガ",image:"ドコモ光.png",
+    price:house => house === "マンション" ? "月額4,400円（税込）〜" : "月額5,720円（税込）〜",
+    priceCondition:house => `タイプA/C・2年定期契約の例（${house}）。タイプB・単独タイプ・定期契約なしは料金が異なります。`,
+    setDiscount:"対象のドコモ料金プラン、ペア回線設定などの適用条件があります。",
+    construction:"工事料・特典条件は申込時期や工事内容により異なります。途中解約時の残債も確認が必要です。",
+    areaNote:"1ギガは広い地域で提供されますが、住所・建物設備による確認が必要です。",
+    suitable:["ドコモスマホを利用中","月額条件を比較したい","1ギガで十分な用途"],
+    baseReasons:["ドコモセット割の対象候補","IPv6高速通信対応","dポイント特典を確認可能"],
+    problemReason:{
+      "料金":"タイプ・契約期間別に比較",
+      "工事":"工事費と残債条件を確認",
+      "引っ越し":"転居先の提供可否を確認",
+      "新規契約":"初期費用と特典を比較",
+      "速度":"1ギガの利用環境を確認"
+    }
   },
-
   docomo10g:{
-    name:"ドコモ光 10G",
-    image:"",
-    price:() => "月額6,380円（税込）",
-    suitable:[
-      "ドコモスマホをご利用中",
-      "通信速度を改善したい",
-      "ゲームを快適に楽しみたい",
-      "大容量通信を利用する"
-    ],
-    reasons:[
-      "ドコモセット割対応",
-      "最大10Gbps対応",
-      "大容量通信におすすめ"
-    ]
+    brand:"docomo",speed:"10G",name:"ドコモ光 10ギガ",image:"",
+    price:()=>"タイプA/C 月額6,380円（税込）",
+    priceCondition:()=>"2年定期契約の場合、タイプA/C 6,380円、タイプB 6,600円、単独タイプ5,940円（別途プロバイダ料金）です。",
+    setDiscount:"対象のドコモ料金プラン、ペア回線設定などの適用条件があります。",
+    construction:"1ギガからの変更でも提供エリア・工事・10ギガ対応ルーターの確認が必要です。",
+    areaNote:"10ギガは市区町村・建物設備により提供可否が異なります。住所確認が必要です。",
+    suitable:["10ギガを利用したい","ゲーム・大容量通信が多い","ドコモスマホを利用中"],
+    baseReasons:["タイプ別料金を比較可能","最大10Gbps対応","ドコモセット割の対象候補"],
+    problemReason:{"料金":"タイプA/C・B・単独を比較","工事":"変更工事と機器を確認","引っ越し":"転居先の10ギガ提供確認","新規契約":"タイプとプロバイダを比較","速度":"10ギガ提供可否を確認"}
   },
-
   softbank1g:{
-    name:"ソフトバンク光 1G",
-    image:"ソフトバンク光.png",
-    price:house => house === "マンション"
-      ? "マンション 月額4,180円（税込）〜"
-      : "戸建て 月額5,720円（税込）〜",
-    suitable:[
-      "SoftBankスマホ利用中",
-      "月額料金を比較したい",
-      "乗り換え費用が気になる",
-      "IPv6通信を利用したい"
-    ],
-    reasons:[
-      "SoftBankセット割対応",
-      "工事費実質0円対象プランあり",
-      "IPv6高速通信対応"
-    ]
+    brand:"softbank",speed:"1G",name:"SoftBank 光 1ギガ",image:"ソフトバンク光.png",
+    price:house => house === "マンション" ? "月額4,180円（税込）〜" : "月額5,720円（税込）〜",
+    priceCondition:()=>"2年自動更新プランの基本料金例です。契約期間なし等は料金が異なります。",
+    setDiscount:"おうち割には対象スマホプランと、光BBユニット等の指定オプション（550円〜/月）の加入・申込手続きが必要です。",
+    construction:"工事費は分割請求と同額割引の対象となる場合があります。割引終了前の解約では残債が発生する場合があります。",
+    areaNote:"住所・建物設備による提供確認が必要です。",
+    suitable:["SoftBank・Y!mobile利用中","1ギガで十分な用途","乗り換え費用を確認したい"],
+    baseReasons:["スマホ割の条件を確認可能","IPv6高速通信対応","乗り換え特典を確認可能"],
+    problemReason:{"料金":"指定オプション込みで比較","工事":"工事費割引と残債確認","引っ越し":"移転先の設備を確認","新規契約":"初期費用と特典を確認","速度":"IPv6利用条件を確認"}
   },
-
   softbank10g:{
-    name:"ソフトバンク光 10G",
-    image:"",
-    price:() => "月額6,270円（税込）",
-    suitable:[
-      "SoftBankスマホ利用中",
-      "ゲームを快適に楽しみたい",
-      "通信速度を改善したい",
-      "大容量通信を利用する"
-    ],
-    reasons:[
-      "SoftBankセット割対応",
-      "最大10Gbps対応",
-      "ゲーム利用におすすめ"
-    ]
+    brand:"softbank",speed:"10G",name:"SoftBank 光 10ギガ",image:"",
+    price:()=>"基本料金 月額6,380円（税込）",
+    priceCondition:()=>"2年自動更新プランの基本料金です。ホームゲートウェイ（S）550円/月などが別途必要です。",
+    setDiscount:"おうち割には対象スマホプランと指定オプション（550円〜/月）への加入・申込手続きが必要です。",
+    construction:"工事費は分割請求と同額割引の対象となる場合があります。途中解約時は残債が発生する場合があります。",
+    areaNote:"10ギガは一部市区町村・設備のみ。住所による提供確認が必要です。",
+    suitable:["SoftBank・Y!mobile利用中","ゲーム・大容量通信が多い","10ギガを利用したい"],
+    baseReasons:["基本料金6,380円","最大10Gbps対応","スマホ割条件を確認可能"],
+    problemReason:{"料金":"機器代・指定オプション込みで比較","工事":"工事費割引と残債確認","引っ越し":"転居先の10ギガ提供確認","新規契約":"機器・契約期間を確認","速度":"10ギガ提供可否を確認"}
   },
-
   nifty1g:{
-    name:"ニフティ光 1G",
-    image:"ニフティ光.png",
-    price:house => house === "マンション"
-      ? "マンション 月額4,378円（税込）〜"
-      : "戸建て 月額5,720円（税込）〜",
-    suitable:[
-      "au・UQスマホ利用中",
-      "月額料金を抑えたい",
-      "通信速度を改善したい",
-      "IPv6通信を利用したい"
-    ],
-    reasons:[
-      "月額料金を抑えやすい",
-      "au・UQセット割対応",
-      "IPv6高速通信対応"
-    ]
+    brand:"nifty",speed:"1G",name:"@nifty光 1ギガ",image:"ニフティ光.png",
+    price:house => house === "マンション" ? "月額4,378円（税込）〜" : "月額5,720円（税込）〜",
+    priceCondition:()=>"表示料金は1ギガプランの目安です。契約期間・特典適用により支払額が異なります。",
+    setDiscount:"au/UQの割引には@nifty光電話、対象スマホプラン、名義・申込手続きなどの条件があります。",
+    construction:"工事費特典は分割請求と割引で相殺される場合があります。途中解約時の残債確認が必要です。",
+    areaNote:"1ギガは広い地域で提供されますが、住所・建物設備による確認が必要です。",
+    suitable:["au・UQ mobile利用中","月額を比較したい","IPv6通信を利用したい"],
+    baseReasons:["月額条件を比較しやすい","au/UQ割の条件を確認可能","IPv6高速通信対応"],
+    problemReason:{"料金":"光電話等を含めて比較","工事":"工事費特典と残債確認","引っ越し":"転居先の提供可否確認","新規契約":"契約期間と特典確認","速度":"IPv6利用条件を確認"}
   },
-
   nifty10g:{
-    name:"ニフティ光 10G",
-    image:"",
-    price:() => "月額6,380円（税込）",
-    suitable:[
-      "au・UQスマホ利用中",
-      "高速通信を利用したい",
-      "ゲームを快適に楽しみたい",
-      "大容量通信を利用する"
-    ],
-    reasons:[
-      "au・UQセット割対応",
-      "最大10Gbps対応",
-      "大容量通信におすすめ"
-    ]
+    brand:"nifty",speed:"10G",name:"@nifty光 10ギガ",image:"",
+    price:()=>"月額6,380円（税込）〜",
+    priceCondition:()=>"表示料金は10ギガプランの目安です。契約・キャンペーン条件により異なります。",
+    setDiscount:"au/UQの割引には@nifty光電話、対象スマホプラン、名義・申込手続きなどの条件があります。",
+    construction:"10ギガ提供エリア、工事、対応ルーターの確認が必要です。",
+    areaNote:"一部地域のみ提供。都道府県内でも市区町村・設備により利用できない場合があります。",
+    suitable:["au・UQ mobile利用中","ゲーム・大容量通信が多い","10ギガを利用したい"],
+    baseReasons:["最大10Gbps対応","au/UQ割の条件を確認可能","提供エリア確認が必要"],
+    problemReason:{"料金":"割引・光電話込みで比較","工事":"10ギガ工事と機器確認","引っ越し":"転居先の10ギガ確認","新規契約":"提供エリアと特典確認","速度":"10ギガ提供可否を確認"}
   },
-
   biglobe:{
-    name:"ビッグローブ光",
-    image:"ビッグローブ光.png",
-    price:house => house === "マンション"
-      ? "マンション 月額4,378円（税込）〜"
-      : "戸建て 月額5,478円（税込）〜",
-    suitable:[
-      "au・UQスマホ利用中",
-      "月額料金を比較したい",
-      "工事費が気になる",
-      "IPv6通信を利用したい"
-    ],
-    reasons:[
-      "月額料金を比較しやすい",
-      "au・UQセット割対応",
-      "工事費実質0円対象プランあり"
-    ]
+    brand:"biglobe",speed:"1G",name:"BIGLOBE光 1ギガ",image:"ビッグローブ光.png",
+    price:house => house === "マンション" ? "月額4,378円（税込）〜" : "月額5,478円（税込）〜",
+    priceCondition:()=>"1ギガ・定期契約の料金例です。契約期間やキャンペーンにより異なります。",
+    setDiscount:"au/UQの割引にはBIGLOBE光電話、対象スマホプラン、名義・申込手続きなど所定条件があります。",
+    construction:"新規工事費は分割請求と同額割引で実質0円となる場合があります。割引終了前の解約では残債を一括請求される場合があります。",
+    areaNote:"1ギガは全都道府県で提供対象ですが、住所・建物設備による確認が必要です。",
+    suitable:["au・UQ mobile利用中","月額料金を比較したい","工事費の条件を確認したい"],
+    baseReasons:["月額条件を比較しやすい","au/UQ割の条件を確認可能","工事費割引の仕組みを確認可能"],
+    problemReason:{"料金":"契約期間とスマホ割を比較","工事":"分割請求・割引・残債確認","引っ越し":"転居先の提供確認","新規契約":"初期費用と特典確認","速度":"IPv6利用条件を確認"}
   },
-
   au:{
-    name:"auひかり",
-    image:"au光.png",
-    price:house => house === "マンション"
-      ? "マンション 月額4,180円（税込）〜"
-      : "戸建て 月額5,610円（税込）〜",
-    suitable:[
-      "au・UQスマホ利用中",
-      "スマホ料金を抑えたい",
-      "通信混雑を避けたい",
-      "高速通信を利用したい"
-    ],
-    reasons:[
-      "au・UQセット割対応",
-      "独自回線で混雑に強い",
-      "工事費実質0円対象プランあり"
-    ]
+    brand:"au",speed:"1G",name:"auひかり",image:"au光.png",
+    price:house => house === "マンション" ? "月額4,180円（税込）〜（建物タイプにより異なる）" : "戸建て 月額5,610円（税込）〜",
+    priceCondition:house => house === "マンション" ? "マンションは配線方式・建物設備・契約戸数でタイプと料金が異なり、4,180円が一律料金ではありません。" : "戸建て1年目の料金例です。契約期間・プロバイダ・特典により異なります。",
+    setDiscount:"au/UQの割引にはネット＋電話、対象スマホプラン、名義・申込手続きなどの条件があります。",
+    construction:"工事費は分割請求と同額割引の対象となる場合があります。電話同時申込等の条件や途中解約時の残債確認が必要です。",
+    areaNote:house => house === "マンション" ? "設備導入済み集合住宅が対象。建物タイプの確認が必要です。" : "戸建ては地域・住所により提供可否が異なります。",
+    suitable:["au・UQ mobile利用中","独自回線を比較したい","建物タイプを確認できる"],
+    baseReasons:["au/UQ割の条件を確認可能","独自回線で混雑に強い","建物タイプ別料金を確認可能"],
+    problemReason:{"料金":"電話等を含めて比較","工事":"分割請求・割引・残債確認","引っ越し":"転居先の設備確認","新規契約":"建物タイプと特典確認","速度":"独自回線の提供確認"}
   },
-
   nuro2g:{
-    name:"NURO光 2G",
-    image:"ニューロ光.png",
-    price:() => "月額5,500円（税込）",
-    suitable:[
-      "通信速度を改善したい",
-      "SoftBankスマホ利用中",
-      "ゲームを快適に楽しみたい",
-      "戸建てで利用予定"
-    ],
-    reasons:[
-      "SoftBank割対応",
-      "高速通信に対応",
-      "工事費実質0円対象プランあり"
-    ]
+    brand:"nuro",speed:"2G",name:"NURO 光 2ギガ（戸建て）",image:"ニューロ光.png",
+    price:()=>isNuroRevisedPriceDate()?"月額5,720円（税込）":"月額5,500円（税込）",
+    priceCondition:()=>isNuroRevisedPriceDate()?"NURO 光 One 2ギガの2026年9月1日以降の基本料金です。":"NURO 光 One 2ギガの2026年8月31日までの基本料金です。2026年9月1日から5,720円に改定予定です。",
+    setDiscount:"SoftBankのおうち割にはNURO 光 でんわ、対象スマホプラン、契約名義・家族条件、申込手続きが必要です。",
+    construction:"基本工事費は分割請求され、同額割引で実質無料となる場合があります。割引終了前の解約では残債が発生する場合があります。",
+    areaNote:pref => NURO_2G_PREFECTURES.has(pref)?"対象都道府県ですが一部地域を除きます。住所による提供エリア確認が必要です。":"この都道府県は公式の2ギガ提供対象外です。",
+    suitable:["戸建てで高速通信を利用したい","SoftBankスマホを利用中","住所確認が可能"],
+    baseReasons:["2ギガ高速通信対応","SoftBank割の条件を確認可能","住所レベルの提供確認が必要"],
+    problemReason:{"料金":"料金改定時期も含めて比較","工事":"分割工事費と残債確認","引っ越し":"転居先住所の提供確認","新規契約":"エリア・工事・特典確認","速度":"2ギガ提供可否を確認"}
   },
-
   nuro10g:{
-    name:"NURO光 10G",
-    image:"ニューロ光.png",
-    price:() => "月額6,050円（税込）",
-    suitable:[
-      "通信速度を重視したい",
-      "ゲームを快適に楽しみたい",
-      "大容量通信を利用する",
-      "10G回線を比較したい"
-    ],
-    reasons:[
-      "月額6,050円で利用",
-      "最大10Gbps対応",
-      "大容量通信に強い"
-    ]
+    brand:"nuro",speed:"10G",name:"NURO 光 10ギガ（戸建て）",image:"ニューロ光.png",
+    price:()=>isNuroRevisedPriceDate()?"月額6,600円（税込）":"月額6,050円（税込）",
+    priceCondition:()=>isNuroRevisedPriceDate()?"NURO 光 One 10ギガの2026年9月1日以降の基本料金です。":"NURO 光 One 10ギガの2026年8月31日までの基本料金です。2026年9月1日から6,600円に改定予定です。",
+    setDiscount:"SoftBankのおうち割にはNURO 光 でんわ、対象スマホプラン、契約名義・家族条件、申込手続きが必要です。",
+    construction:"基本工事費は分割請求され、同額割引で実質無料となる場合があります。割引終了前の解約では残債が発生する場合があります。",
+    areaNote:pref => NURO_10G_PREFECTURES.has(pref)?"対象都道府県ですが一部地域を除きます。住所による提供エリア確認が必要です。":"この都道府県は公式の10ギガ提供対象外です。",
+    suitable:["戸建てで10ギガを利用したい","ゲーム・大容量通信が多い","住所確認が可能"],
+    baseReasons:["最大10Gbps対応","料金改定時期を確認可能","住所レベルの提供確認が必要"],
+    problemReason:{"料金":"2026年9月改定も含め比較","工事":"分割工事費と残債確認","引っ越し":"転居先住所の10ギガ確認","新規契約":"エリア・工事・特典確認","速度":"10ギガ提供可否を確認"}
   }
 };
 
-let diagnosisPlans = [];
-let selectedPlanIndex = 0;
-let diagnosisConditions = [];
-let diagnosisTimer = null;
-let lineLocked = false;
+let diagnosisPlans=[];
+let selectedPlanIndex=0;
+let diagnosisConditions=[];
+let diagnosisTimer=null;
+let lineLocked=false;
 
-function getNormalPlans(carrier,currentLine,house){
-  if(carrier === "au"){
-    if(house === "戸建て"){
-      if(currentLine === "au光") return ["nifty1g","biglobe","nuro2g"];
-      if(currentLine === "ソネット光") return ["nifty1g","biglobe","au"];
-      if(currentLine === "ニフティ光") return ["au","biglobe","nuro2g"];
-      if(currentLine === "ビッグローブ光") return ["nifty1g","au","nuro2g"];
-      return ["nifty1g","biglobe","au"];
-    }
+function carrierGroup(value){
+  if(value==="docomo") return "docomo";
+  if(value==="au" || value==="UQ mobile") return "au";
+  if(value==="SoftBank" || value==="Y!mobile") return "SoftBank";
+  return "other";
+}
 
-    return ["nifty1g","biglobe","docomo1g"];
-  }
+function currentBrand(value){
+  if(value.startsWith("docomo")) return "docomo";
+  if(value.startsWith("softbank")) return "softbank";
+  if(value.startsWith("au")) return "au";
+  if(value.startsWith("nuro")) return "nuro";
+  if(value.startsWith("nifty")) return "nifty";
+  if(value.startsWith("biglobe")) return "biglobe";
+  if(value.startsWith("sonet")) return "sonet";
+  return "other";
+}
 
-  if(carrier === "docomo"){
-    if(currentLine === "ドコモ光 10G") return ["nuro2g","nuro10g"];
-    if(currentLine === "ドコモ光 1G") return ["docomo10g","nuro2g","nuro10g"];
+function currentSpeed(value){
+  if(value.includes("10g")) return "10G";
+  if(value.includes("2g")) return "2G";
+  if(value.includes("1g")) return "1G";
+  return "";
+}
+
+function currentLineLabel(value){
+  const el=document.querySelector(`#currentLine option[value="${value}"]`);
+  return el?el.textContent:value;
+}
+
+function getNormalPlans(group,currentLine,house){
+  if(group==="docomo"){
+    if(currentLine==="docomo10g") return ["nuro2g","nuro10g"];
+    if(currentLine==="docomo1g") return ["docomo10g","nuro2g","nuro10g"];
     return ["docomo1g","docomo10g","nuro2g"];
   }
-
-  if(carrier === "SoftBank"){
-    if(currentLine === "ソフトバンク光") return ["nuro2g","nuro10g"];
-    if(currentLine === "NURO光") return ["softbank1g","softbank10g"];
+  if(group==="SoftBank"){
+    if(currentLine.startsWith("softbank")) return ["nuro2g","nuro10g"];
+    if(currentLine.startsWith("nuro")) return ["softbank1g","softbank10g"];
     return ["softbank1g","nuro2g","nuro10g"];
   }
-
+  if(group==="au"){
+    if(house==="マンション") return ["nifty1g","biglobe","docomo1g"];
+    if(currentLine.startsWith("au")) return ["nifty1g","biglobe","nuro2g"];
+    if(currentLine.startsWith("sonet")) return ["nifty1g","biglobe","au"];
+    if(currentLine.startsWith("nifty")) return ["au","biglobe","nuro2g"];
+    if(currentLine.startsWith("biglobe")) return ["nifty1g","au","nuro2g"];
+    return ["nifty1g","biglobe","au"];
+  }
   return ["nifty1g","biglobe","nuro2g"];
 }
 
-function getSpeedPlans(carrier,currentLine){
-  if(carrier === "docomo"){
-    if(currentLine === "ドコモ光 10G") return ["nuro10g","nifty10g","softbank10g"];
+function getSpeedPlans(group,currentLine){
+  if(group==="docomo"){
+    if(currentLine==="docomo10g") return ["nuro10g","nifty10g","softbank10g"];
     return ["docomo10g","nuro10g","nifty10g"];
   }
-
-  if(carrier === "SoftBank") return ["softbank10g","nuro10g","nifty10g"];
-  if(carrier === "au") return ["nifty10g","nuro10g","docomo10g"];
-
+  if(group==="SoftBank") return ["softbank10g","nuro10g","nifty10g"];
+  if(group==="au") return ["nifty10g","nuro10g","docomo10g"];
   return ["nifty10g","nuro10g","softbank10g"];
 }
 
-function getCarrierCondition(carrier){
-  if(carrier === "docomo") return "docomo利用";
-  if(carrier === "au") return "au利用";
-  if(carrier === "SoftBank") return "SoftBank利用";
-  return "格安スマホ等";
+function isAvailable(planKey,house,prefecture){
+  if(planKey==="nuro2g") return house!=="マンション" && NURO_2G_PREFECTURES.has(prefecture);
+  if(planKey==="nuro10g") return house!=="マンション" && NURO_10G_PREFECTURES.has(prefecture);
+  return true;
+}
+
+function filterCandidates(keys,house,prefecture){
+  return keys.filter(key=>plans[key] && isAvailable(key,house,prefecture));
+}
+
+function getCarrierCondition(value){
+  if(value==="UQ mobile") return "UQ mobile利用";
+  if(value==="Y!mobile") return "Y!mobile利用";
+  if(value==="ahamo") return "ahamo利用";
+  if(value==="povo") return "povo利用";
+  if(value==="楽天モバイル") return "楽天モバイル利用";
+  if(value==="その他格安スマホ") return "格安スマホ利用";
+  return `${value}利用`;
 }
 
 function getProblemCondition(problem){
-  if(problem === "料金") return "月額料金重視";
-  if(problem === "速度") return "通信速度重視";
-  if(problem === "工事") return "工事内容確認";
-  if(problem === "引っ越し") return "引っ越し予定";
-  return "新規契約検討";
+  return ({"料金":"月額料金重視","速度":"通信速度重視","工事":"工事条件重視","引っ越し":"引っ越し予定","新規契約":"新規契約検討"})[problem]||problem;
+}
+
+function relationFor(plan,currentLine){
+  const brand=currentBrand(currentLine);
+  if(plan.brand!==brand) return "乗り換え候補";
+  const speed=currentSpeed(currentLine);
+  if(speed && speed!==plan.speed) return "プラン変更候補";
+  return "継続候補";
+}
+
+function getDynamicReasons(plan,problem){
+  const first=plan.problemReason[problem]||plan.baseReasons[0];
+  const combined=[first,...plan.baseReasons];
+  return [...new Set(combined)].slice(0,3);
+}
+
+function detailText(value,...args){
+  return typeof value==="function"?value(...args):value;
 }
 
 function saveFormValues(){
-  const data = {};
-  ["house","region","carrier","currentLine","problem"].forEach(id => {
-    data[id] = document.getElementById(id).value;
-  });
-
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
-  }catch(error){}
+  const data={};
+  ["house","region","carrier","currentLine","problem"].forEach(id=>data[id]=document.getElementById(id).value);
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}
 }
 
 function restoreFormValues(){
   try{
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+    Object.entries(data).forEach(([id,value])=>{const el=document.getElementById(id);if(el&&value)el.value=value;});
+  }catch(e){}
+}
 
-    Object.entries(data).forEach(([id,value]) => {
-      const element = document.getElementById(id);
-      if(element && value) element.value = value;
-    });
-  }catch(error){}
+function saveResultState(){
+  try{
+    localStorage.setItem(RESULT_KEY,JSON.stringify({plans:diagnosisPlans,index:selectedPlanIndex,conditions:diagnosisConditions}));
+  }catch(e){}
+}
+
+function restoreResultState(){
+  try{
+    const state=JSON.parse(localStorage.getItem(RESULT_KEY)||"null");
+    if(!state||!Array.isArray(state.plans)||!state.plans.length) return;
+    diagnosisPlans=state.plans.filter(key=>plans[key]);
+    if(!diagnosisPlans.length) return;
+    selectedPlanIndex=Math.min(Number(state.index)||0,diagnosisPlans.length-1);
+    diagnosisConditions=Array.isArray(state.conditions)?state.conditions:[];
+    renderSelectedPlan(false);
+    renderCandidateButtons();
+    document.getElementById("result").style.display="block";
+  }catch(e){}
 }
 
 function validateForm(){
-  const ids = ["house","region","carrier","currentLine","problem"];
-  const error = document.getElementById("error");
-
+  const ids=["house","region","carrier","currentLine","problem"];
+  const error=document.getElementById("error");
   for(const id of ids){
-    const element = document.getElementById(id);
-
-    if(!element.value){
-      error.textContent = `${element.dataset.label}を選択してください。`;
-      error.style.display = "block";
-      element.focus();
+    const el=document.getElementById(id);
+    if(!el.value){
+      error.textContent=`${el.dataset.label}を選択してください。`;
+      error.style.display="block";
+      el.focus();
       return false;
     }
   }
-
-  error.style.display = "none";
+  error.style.display="none";
   return true;
 }
 
 function startDiagnosis(){
   if(!validateForm()) return;
-
   saveFormValues();
-
-  const button = document.getElementById("diagnoseButton");
-  button.disabled = true;
-  button.textContent = "診断中…";
-
-  document.getElementById("result").style.display = "none";
-  document.getElementById("loading").style.display = "block";
+  const btn=document.getElementById("diagnoseButton");
+  btn.disabled=true;
+  btn.textContent="診断中…";
+  document.getElementById("result").style.display="none";
+  document.getElementById("loading").style.display="block";
   document.getElementById("loading").scrollIntoView({behavior:"smooth",block:"center"});
-
   if(diagnosisTimer) clearTimeout(diagnosisTimer);
-
-  diagnosisTimer = setTimeout(() => {
-    try{
-      runDiagnosis();
-    }catch(error){
-      showCommunicationError();
-    }finally{
-      button.disabled = false;
-      button.textContent = "診断する";
-    }
-  },1300);
+  diagnosisTimer=setTimeout(()=>{
+    try{runDiagnosis();}
+    catch(e){showProcessingError();}
+    finally{btn.disabled=false;btn.textContent="診断する";}
+  },350);
 }
 
 function runDiagnosis(){
-  const house = document.getElementById("house").value;
-  const region = document.getElementById("region").value;
-  const carrier = document.getElementById("carrier").value;
-  const currentLine = document.getElementById("currentLine").value;
-  const problem = document.getElementById("problem").value;
+  const house=document.getElementById("house").value;
+  const prefecture=document.getElementById("region").value;
+  const carrier=document.getElementById("carrier").value;
+  const currentLine=document.getElementById("currentLine").value;
+  const problem=document.getElementById("problem").value;
+  const group=carrierGroup(carrier);
 
-  diagnosisPlans = problem === "速度"
-    ? getSpeedPlans(carrier,currentLine)
-    : getNormalPlans(carrier,currentLine,house);
+  const base=problem==="速度"?getSpeedPlans(group,currentLine):getNormalPlans(group,currentLine,house);
+  diagnosisPlans=filterCandidates(base,house,prefecture);
+  diagnosisConditions=[getCarrierCondition(carrier),house,prefecture,getProblemCondition(problem)];
+  document.getElementById("loading").style.display="none";
 
-  diagnosisConditions = [
-    getCarrierCondition(carrier),
-    house,
-    region,
-    getProblemCondition(problem)
-  ];
-
-  document.getElementById("loading").style.display = "none";
-
-  if(!Array.isArray(diagnosisPlans) || diagnosisPlans.length === 0){
-    showNoPlans();
-    return;
-  }
-
-  selectedPlanIndex = 0;
-  renderSelectedPlan();
+  if(!diagnosisPlans.length){showNoPlans();return;}
+  selectedPlanIndex=0;
+  renderSelectedPlan(false);
   renderCandidateButtons();
-
-  document.getElementById("candidatePanel").style.display = "none";
-  document.getElementById("otherToggle").textContent = "他のおすすめを見る";
-
-  const result = document.getElementById("result");
-  result.style.display = "block";
+  document.getElementById("candidatePanel").style.display="none";
+  document.getElementById("otherToggle").textContent="他のおすすめを見る";
+  const result=document.getElementById("result");
+  result.style.display="block";
+  saveResultState();
   result.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function renderSelectedPlan(){
-  const planKey = diagnosisPlans[selectedPlanIndex];
-  const plan = plans[planKey];
-  const house = document.getElementById("house").value;
+function renderSelectedPlan(showNotice=true){
+  const planKey=diagnosisPlans[selectedPlanIndex];
+  const plan=plans[planKey];
+  if(!plan){showNoPlans();return;}
+  const house=document.getElementById("house").value;
+  const prefecture=document.getElementById("region").value;
+  const currentLine=document.getElementById("currentLine").value;
+  const problem=document.getElementById("problem").value;
 
-  if(!plan){
-    showNoPlans();
-    return;
-  }
+  document.getElementById("completionPlanName").textContent=plan.name;
+  document.getElementById("planName").textContent=plan.name;
+  document.getElementById("relationBadge").textContent=relationFor(plan,currentLine);
+  document.getElementById("conditionList").innerHTML=diagnosisConditions.map(item=>`<li>✓ ${item}</li>`).join("");
+  document.getElementById("problemPointList").innerHTML=(problemProfiles[problem]||[]).map(item=>`<li>✓ ${item}</li>`).join("");
 
-  document.getElementById("completionPlanName").textContent = plan.name;
-  document.getElementById("planName").textContent = plan.name;
-
-  document.getElementById("conditionList").innerHTML =
-    diagnosisConditions.map(item => `<li>✓ ${item}</li>`).join("");
-
-  const imageArea = document.getElementById("imageArea");
-
-  if(plan.image){
-    imageArea.innerHTML = `
-      <img
-        class="plan-image"
-        src="${plan.image}"
-        alt="${plan.name}の回線画像"
-        loading="lazy"
-        decoding="async"
-      >
-    `;
+  const imageArea=document.getElementById("imageArea");
+  const hideNuroOldImage=plan.brand==="nuro" && isNuroRevisedPriceDate();
+  if(plan.image && !hideNuroOldImage){
+    imageArea.innerHTML=`<img class="plan-image" src="${plan.image}" alt="${plan.name}の案内画像" loading="lazy" decoding="async">`;
   }else{
-    imageArea.innerHTML = `
-      <div class="image-placeholder">
-        ${plan.name}<br>
-        10G専用画像 準備中
-      </div>
-    `;
+    imageArea.innerHTML=`<div class="image-placeholder">${plan.name}<br><span class="current-line-note">料金・提供条件は下記をご確認ください</span></div>`;
   }
 
-  document.getElementById("suitableList").innerHTML =
-    plan.suitable.slice(0,4).map(item => `<li>✓ ${item}</li>`).join("");
+  const avail=document.getElementById("availabilityNote");
+  const areaText=detailText(plan.areaNote,prefecture,house);
+  avail.textContent=areaText;
+  avail.style.display="block";
 
-  document.getElementById("reasonList").innerHTML =
-    plan.reasons.slice(0,3).map(reason => `<li>✓ ${reason}</li>`).join("");
+  document.getElementById("suitableList").innerHTML=plan.suitable.slice(0,4).map(item=>`<li>✓ ${item}</li>`).join("");
+  document.getElementById("reasonList").innerHTML=getDynamicReasons(plan,problem).map(item=>`<li>✓ ${item}</li>`).join("");
+  document.getElementById("priceNote").textContent=`${plan.price(house)}　※表示条件は下記をご確認ください。`;
+
+  const details=[
+    ["料金条件",detailText(plan.priceCondition,house,prefecture)],
+    ["スマホ割・適用条件",detailText(plan.setDiscount,house,prefecture)],
+    ["工事費・残債",detailText(plan.construction,house,prefecture)],
+    ["提供エリア",areaText]
+  ];
+  document.getElementById("conditionDetails").innerHTML=details.map(([label,value])=>`<div class="condition-detail"><strong>${label}</strong>${value}</div>`).join("");
 
   setupLineButton();
-
-  document.getElementById("priceNote").textContent =
-    `${plan.price(house)}　※提供条件等により異なる場合があります。`;
+  if(showNotice){
+    const notice=document.getElementById("changeNotice");
+    notice.textContent="表示する診断候補を切り替えました。";
+    notice.style.display="block";
+    setTimeout(()=>notice.style.display="none",2200);
+  }
+  saveResultState();
 }
 
 function setupLineButton(){
-  const lineButton = document.getElementById("lineButton");
-  lineButton.href = LINE_URL;
-  lineButton.setAttribute("aria-disabled","false");
-
-  lineButton.onclick = event => {
-    if(lineLocked){
-      event.preventDefault();
-      return;
-    }
-
-    lineLocked = true;
-    lineButton.setAttribute("aria-disabled","true");
-
-    setTimeout(() => {
-      lineLocked = false;
-      lineButton.setAttribute("aria-disabled","false");
-    },2000);
+  const btn=document.getElementById("lineButton");
+  btn.href=LINE_URL;
+  btn.setAttribute("aria-disabled","false");
+  btn.onclick=e=>{
+    if(lineLocked){e.preventDefault();return;}
+    lineLocked=true;
+    btn.setAttribute("aria-disabled","true");
+    setTimeout(()=>{lineLocked=false;btn.setAttribute("aria-disabled","false");},2000);
   };
 }
 
 function renderCandidateButtons(){
-  const list = document.getElementById("candidateList");
-  list.innerHTML = "";
-
-  diagnosisPlans.forEach((planKey,index) => {
-    if(index === selectedPlanIndex) return;
-
-    const plan = plans[planKey];
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "candidate-button";
-    button.textContent = `○ ${plan.name}`;
-    button.onclick = () => selectCandidate(index);
+  const list=document.getElementById("candidateList");
+  list.innerHTML="";
+  diagnosisPlans.forEach((key,index)=>{
+    if(index===selectedPlanIndex||!plans[key]) return;
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="candidate-button";
+    button.textContent=`○ ${plans[key].name}`;
+    button.onclick=()=>selectCandidate(index);
     list.appendChild(button);
   });
-
-  if(list.children.length === 0){
-    list.innerHTML = `<p class="card-note">現在、他の診断候補はありません。</p>`;
-  }
+  if(!list.children.length) list.innerHTML='<p class="card-note">現在、他の診断候補はありません。</p>';
 }
 
 function selectCandidate(index){
-  const scrollPosition = window.scrollY;
-
-  selectedPlanIndex = index;
-  renderSelectedPlan();
+  selectedPlanIndex=index;
+  renderSelectedPlan(true);
   renderCandidateButtons();
-
-  requestAnimationFrame(() => window.scrollTo(0,scrollPosition));
+  document.querySelector(".result-heading").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 function toggleCandidates(){
-  const panel = document.getElementById("candidatePanel");
-  const button = document.getElementById("otherToggle");
-  const opening = panel.style.display !== "block";
-
-  panel.style.display = opening ? "block" : "none";
-  button.textContent = opening
-    ? "他のおすすめを閉じる"
-    : "他のおすすめを見る";
+  const panel=document.getElementById("candidatePanel");
+  const button=document.getElementById("otherToggle");
+  const open=panel.style.display!=="block";
+  panel.style.display=open?"block":"none";
+  button.textContent=open?"他のおすすめを閉じる":"他のおすすめを見る";
 }
+
 function restartDiagnosis(){
-  document.getElementById("result").style.display = "none";
-  document.getElementById("loading").style.display = "none";
+  document.getElementById("result").style.display="none";
+  document.getElementById("loading").style.display="none";
+  document.getElementById("house").focus();
   document.querySelector(".container").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 function showNoPlans(){
-  document.getElementById("loading").style.display = "none";
-
-  const result = document.getElementById("result");
-  result.innerHTML = `
-    <div class="no-plan">
-      <h2>診断結果</h2>
-      <p>
-        お住まいの地域や条件によっては、ご案内できる回線がない場合があります。
-        詳しくはLINEよりお気軽にご相談ください。
-      </p>
-      <a class="line-button" href="${LINE_URL}" target="_blank" rel="noopener noreferrer">
-        💬 LINEで無料診断・相談
-      </a>
-      <button class="reset-button" type="button" onclick="restartDiagnosis()">
-        診断をやり直す
-      </button>
-    </div>
-  `;
-
-  result.style.display = "block";
+  document.getElementById("loading").style.display="none";
+  const result=document.getElementById("result");
+  result.innerHTML=`<div class="no-plan"><h2>入力条件に近い候補を表示できませんでした</h2><p>お住まいの地域や条件によっては、ご案内できる回線がない場合があります。詳しくはLINEよりお気軽にご相談ください。</p><a class="line-button" href="${LINE_URL}" target="_blank" rel="noopener noreferrer">💬 LINEで無料診断・相談</a><button class="reset-button" type="button" onclick="location.reload()">条件を変更する</button></div>`;
+  result.style.display="block";
   result.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function showCommunicationError(){
-  document.getElementById("loading").style.display = "none";
-
-  const result = document.getElementById("result");
-  result.innerHTML = `
-    <div class="communication-error">
-      <h2>診断を完了できませんでした</h2>
-      <p>通信環境をご確認のうえ、再度お試しください。</p>
-      <button class="retry-button" type="button" onclick="startDiagnosis()">
-        もう一度診断する
-      </button>
-    </div>
-  `;
-
-  result.style.display = "block";
+function showProcessingError(){
+  document.getElementById("loading").style.display="none";
+  const result=document.getElementById("result");
+  result.innerHTML=`<div class="communication-error"><h2>診断を完了できませんでした</h2><p>診断処理でエラーが発生しました。再度お試しください。</p><button class="retry-button" type="button" onclick="startDiagnosis()">もう一度診断する</button></div>`;
+  result.style.display="block";
   result.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-document.addEventListener("DOMContentLoaded",() => {
+document.addEventListener("DOMContentLoaded",()=>{
   restoreFormValues();
-
-  document.querySelectorAll("select").forEach(element => {
-    element.addEventListener("change",saveFormValues);
-  });
-
+  document.querySelectorAll("select").forEach(el=>el.addEventListener("change",saveFormValues));
+  restoreResultState();
   try{
-    const savedY = Number(sessionStorage.getItem(SCROLL_KEY) || 0);
-    if(savedY > 0){
-      requestAnimationFrame(() => window.scrollTo(0,savedY));
-    }
-  }catch(error){}
+    const savedY=Number(sessionStorage.getItem(SCROLL_KEY)||0);
+    if(savedY>0) requestAnimationFrame(()=>window.scrollTo(0,savedY));
+  }catch(e){}
 });
 
-window.addEventListener("beforeunload",() => {
-  try{
-    sessionStorage.setItem(SCROLL_KEY,String(window.scrollY));
-  }catch(error){}
+window.addEventListener("beforeunload",()=>{
+  try{sessionStorage.setItem(SCROLL_KEY,String(window.scrollY));}catch(e){}
 });
-
 </script>
 
 </body>
